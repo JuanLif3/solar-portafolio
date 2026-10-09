@@ -82,7 +82,7 @@ export function Scene() {
     return (
         <div className="scene">
             <Canvas
-                camera={{ position: [0, 13, 24], fov: 50 }}
+                camera={{ position: [0, 26, 14], fov: 42 }}
                 dpr={[1, 2]}
                 gl={{ antialias: true }}
             >
@@ -90,7 +90,6 @@ export function Scene() {
                 <ambientLight intensity={0.08} />
 
                 <Starfield />
-
                 <Sun />
 
                 {PLANETS.map((p) => (
