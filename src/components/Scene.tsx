@@ -5,14 +5,14 @@ import { Planet, type PlanetConfig } from './Planet'
 import { Starfield } from './Starfield'
 
 const PLANETS: PlanetConfig[] = [
-    { name: 'Mercurio', distance: 3.4,  size: 0.16, speed: 1.55, color: '#a89a8c', emissive: '#1a1006' },
-    { name: 'Venus',    distance: 4.8,  size: 0.23, speed: 1.15, color: '#e6b87a', emissive: '#3a2a10' },
-    { name: 'Tierra',   distance: 6.4,  size: 0.26, speed: 0.85, color: '#4a90c8', emissive: '#0a2030', tilt: 0.41 },
-    { name: 'Marte',    distance: 8.2,  size: 0.21, speed: 0.65, color: '#c2573d', emissive: '#2a0e08', tilt: 0.44 },
-    { name: 'Júpiter',  distance: 11.4, size: 0.55, speed: 0.38, color: '#d4a373', emissive: '#3a2410', tilt: 0.05 },
-    { name: 'Saturno',  distance: 15.0, size: 0.47, speed: 0.28, color: '#e8c88a', emissive: '#3a2c15', tilt: 0.47, hasRings: true, ringColor: '#e0c090' },
-    { name: 'Urano',    distance: 18.6, size: 0.34, speed: 0.20, color: '#7ad4d4', emissive: '#0a2a2a', tilt: 1.71 },
-    { name: 'Neptuno',  distance: 22.0, size: 0.33, speed: 0.15, color: '#3a5b9c', emissive: '#0a1428', tilt: 0.49 },
+    { name: 'Mercurio', kind: 'mercury', distance: 3.4,  size: 0.16, speed: 1.55 },
+    { name: 'Venus',    kind: 'venus',   distance: 4.8,  size: 0.24, speed: 1.15 },
+    { name: 'Tierra',   kind: 'earth',   distance: 6.4,  size: 0.27, speed: 0.85, tilt: 0.41 },
+    { name: 'Marte',    kind: 'mars',    distance: 8.2,  size: 0.21, speed: 0.65, tilt: 0.44 },
+    { name: 'Júpiter',  kind: 'jupiter', distance: 11.4, size: 0.58, speed: 0.38, tilt: 0.05 },
+    { name: 'Saturno',  kind: 'saturn',  distance: 15.0, size: 0.48, speed: 0.28, tilt: 0.47 },
+    { name: 'Urano',    kind: 'uranus',  distance: 18.6, size: 0.34, speed: 0.20, tilt: 1.71 },
+    { name: 'Neptuno',  kind: 'neptune', distance: 22.0, size: 0.33, speed: 0.15, tilt: 0.49 },
 ]
 
 export function Scene() {
@@ -24,7 +24,7 @@ export function Scene() {
                 gl={{ antialias: true }}
             >
                 <color attach="background" args={['#03040a']} />
-                <ambientLight intensity={0.08} />
+                <ambientLight intensity={0.06} />
 
                 <Starfield />
                 <Sun />
@@ -33,7 +33,6 @@ export function Scene() {
                     <Planet key={p.name} {...p} />
                 ))}
 
-                {/* ---- Controles de cámara ---- */}
                 <OrbitControls
                     makeDefault
                     enableDamping
