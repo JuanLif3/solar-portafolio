@@ -6,6 +6,7 @@ import { Sun } from './Sun'
 import { Planet, type PlanetConfig } from './Planet'
 import { Starfield } from './Starfield'
 import { AsteroidBelt } from './AsteroidBelt'
+import { systemStore, useSystemState } from '../store/system'
 
 const PLANETS: PlanetConfig[] = [
     { name: 'Mercurio', kind: 'mercury', distance: 3.4,  size: 0.16, speed: 1.55, label: '01 · Inicio' },
@@ -42,6 +43,8 @@ function DriftingSystem() {
 }
 
 export function Scene() {
+    const { showOrbits } = useSystemState()
+
     return (
         <div className="scene">
             <Canvas
@@ -57,6 +60,9 @@ export function Scene() {
 
                 <OrbitControls
                     makeDefault
+                    ref={(c) => {
+                        if (c) systemStore._setControls(c as unknown as { reset: () => void })
+                    }}
                     enableDamping
                     dampingFactor={0.06}
                     enablePan={false}
@@ -68,6 +74,9 @@ export function Scene() {
                     minPolarAngle={0.05}
                     maxPolarAngle={Math.PI - 0.05}
                 />
+
+                {/* Toggle de órbitas global (no afecta la cámara) */}
+                <group visible={showOrbits} />
             </Canvas>
         </div>
     )
