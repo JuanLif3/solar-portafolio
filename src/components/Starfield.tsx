@@ -49,9 +49,9 @@ export function Starfield() {
     const pointsRef = useRef<THREE.Points>(null)
 
     const { geometry, uniforms } = useMemo(() => {
-        const count = 2400
-        const RANGE = 90
-        const DEPTH = 55
+        const count = 3200
+        const RANGE = 120
+        const DEPTH = 70
 
         const positions = new Float32Array(count * 3)
         const colors = new Float32Array(count * 3)
@@ -81,7 +81,7 @@ export function Starfield() {
             // Parallax: las estrellas más lejanas (z más negativo) se mueven
             // más lentas; las cercanas, más rápidas.
             const depthFactor = 1.0 - Math.abs(positions[i3 + 2]) / (DEPTH + 2)
-            speeds[i] = 0.4 + depthFactor * 2.2 + Math.random() * 0.4
+            speeds[i] = 0.8 + depthFactor * 4.5 + Math.random() * 0.8
             sizes[i] = 0.8 + Math.random() * 2.2
         }
 
