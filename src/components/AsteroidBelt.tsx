@@ -1,6 +1,7 @@
 import { useMemo, useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
+import { systemStore } from '../store/system
 
 export function AsteroidBelt() {
     const pointsRef = useRef<THREE.Points>(null)
@@ -38,7 +39,9 @@ export function AsteroidBelt() {
     }, [])
 
     useFrame((_, delta) => {
-        if (pointsRef.current) pointsRef.current.rotation.y += delta * 0.045
+        const { paused, speed } = systemStore.getState()
+        if (paused) return
+        if (pointsRef.current) pointsRef.current.rotation.y += delta * 0.045 * speed
     })
 
     return (
