@@ -19,6 +19,7 @@ export type PlanetConfig = {
     size: number
     speed: number
     tilt?: number
+    label: string
 }
 
 /* ============================================================
