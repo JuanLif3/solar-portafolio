@@ -1,6 +1,7 @@
 import { useMemo, useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
+import { systemStore } from '../store/system'
 
 /* ============================================================
  *  STREAKS
@@ -165,8 +166,10 @@ export function Starfield() {
     }, [])
 
     useFrame((_, delta) => {
+        const { paused, speed } = systemStore.getState()
+        if (paused) return
         if (materialRef.current) {
-            materialRef.current.uniforms.uTime.value += Math.min(delta, 0.05)
+            materialRef.current.uniforms.uTime.value += Math.min(delta, 0.05) * speed
         }
     })
 
