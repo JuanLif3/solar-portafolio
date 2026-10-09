@@ -1,7 +1,7 @@
 import { useMemo, useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
-import { systemStore } from '../store/system
+import { systemStore } from '../store/system'
 
 export function AsteroidBelt() {
     const pointsRef = useRef<THREE.Points>(null)
