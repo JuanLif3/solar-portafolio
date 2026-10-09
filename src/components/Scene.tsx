@@ -1,4 +1,5 @@
 import { Canvas } from '@react-three/fiber'
+import { OrbitControls } from '@react-three/drei'
 import { Sun } from './Sun'
 import { Planet, type PlanetConfig } from './Planet'
 import { Starfield } from './Starfield'
@@ -31,6 +32,21 @@ export function Scene() {
                 {PLANETS.map((p) => (
                     <Planet key={p.name} {...p} />
                 ))}
+
+                {/* ---- Controles de cámara ---- */}
+                <OrbitControls
+                    makeDefault
+                    enableDamping
+                    dampingFactor={0.06}
+                    enablePan={false}
+                    enableZoom
+                    zoomSpeed={0.6}
+                    rotateSpeed={0.55}
+                    minDistance={8}
+                    maxDistance={70}
+                    minPolarAngle={0.05}
+                    maxPolarAngle={Math.PI - 0.05}
+                />
             </Canvas>
         </div>
     )
