@@ -47,6 +47,8 @@ const frag = /* glsl */ `
 
 export function Starfield() {
     const pointsRef = useRef<THREE.Points>(null)
+    // 1. Agrega una referencia para el material
+    const materialRef = useRef<THREE.ShaderMaterial>(null)
 
     const { geometry, uniforms } = useMemo(() => {
         const count = 3200
@@ -78,10 +80,8 @@ export function Starfield() {
             colors[i3 + 1] = c.g
             colors[i3 + 2] = c.b
 
-            // Parallax: las estrellas más lejanas (z más negativo) se mueven
-            // más lentas; las cercanas, más rápidas.
             const depthFactor = 1.0 - Math.abs(positions[i3 + 2]) / (DEPTH + 2)
-            speeds[i] = 1.5 + depthFactor * 5.0 + Math.random() * 1.2
+            speeds[i] = 0.8 + depthFactor * 4.5 + Math.random() * 0.8
             sizes[i] = 0.8 + Math.random() * 2.2
         }
 
@@ -106,12 +106,16 @@ export function Starfield() {
     }, [])
 
     useFrame((_, delta) => {
-        uniforms.uTime.value += Math.min(delta, 0.05)
+        // 2. Modifica el uniform directamente en la instancia del material
+        if (materialRef.current) {
+            materialRef.current.uniforms.uTime.value += Math.min(delta, 0.05)
+        }
     })
 
     return (
         <points ref={pointsRef} geometry={geometry} frustumCulled={false}>
             <shaderMaterial
+                ref={materialRef} // 3. Asigna la referencia aquí
                 uniforms={uniforms}
                 vertexShader={vert}
                 fragmentShader={frag}
