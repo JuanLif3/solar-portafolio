@@ -1,4 +1,4 @@
-import './HUD.css'
+import '../styles/HUD.css'
 
 const SECTIONS = [
     'Inicio',
