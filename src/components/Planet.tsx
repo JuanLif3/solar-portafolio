@@ -56,17 +56,60 @@ export function Planet({
 
     return (
         <>
-            {/* Anillo de órbita sutil */}
-            <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.001, 0]}>
-                <ringGeometry args={[distance - 0.008, distance + 0.008, 180]} />
+            {/* 1. Halo difuso */}
+            <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.002, 0]}>
+                <ringGeometry args={[distance - 0.18, distance + 0.18, 220]} />
                 <meshBasicMaterial
-                    color="#6ea8ff"
+                    color="#c9b88a"
                     transparent
-                    opacity={0.09}
+                    opacity={0.055}
                     side={THREE.DoubleSide}
                     depthWrite={false}
+                    blending={THREE.AdditiveBlending}
                 />
             </mesh>
+
+        {/* 2. Línea principal brillante */}
+            <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, 0]}>
+                <ringGeometry args={[distance - 0.014, distance + 0.014, 240]} />
+                <meshBasicMaterial
+                    color="#e8d8a8"
+                    transparent
+                    opacity={0.55}
+                    side={THREE.DoubleSide}
+                    depthWrite={false}
+                    blending={THREE.AdditiveBlending}
+                />
+            </mesh>
+
+            {/* 3. Ticks — pequeñas marcas radiales cada 15° */}
+            {Array.from({ length: 24 }).map((_, i) => {
+                const angle = (i / 24) * Math.PI * 2
+                const tickLen = i % 6 === 0 ? 0.14 : 0.06 // más largas cada 90°
+                const x1 = Math.cos(angle) * (distance - 0.02)
+                const z1 = Math.sin(angle) * (distance - 0.02)
+                const x2 = Math.cos(angle) * (distance + tickLen)
+                const z2 = Math.sin(angle) * (distance + tickLen)
+                return (
+                    <line key={i}>
+                        <bufferGeometry>
+                            <bufferAttribute
+                                attach="attributes-position"
+                                args={[
+                                    new Float32Array([x1, 0, z1, x2, 0, z2]),
+                                    3,
+                                ]}
+                            />
+                        </bufferGeometry>
+                        <lineBasicMaterial
+                            color="#e8d8a8"
+                            transparent
+                            opacity={0.5}
+                            depthWrite={false}
+                        />
+                    </line>
+                )
+            })}
 
             {/* Planeta orbitando */}
             <group ref={orbitRef}>
