@@ -1,15 +1,13 @@
-import './App.css'
 import { Scene } from './components/Scene'
+import { HUD } from './components/HUD'
+import './App.css'
 
 export function App() {
-  return (
-      <div className="app">
-          <Scene />
-        <div className="hud">
-          <span className="hud__brand">Sistema Solar</span>
-          <span className="hud__hint">Un viaje entre planetas</span>
+    return (
+        <div className="app">
+            <Scene />
+            <HUD />
+            <div className="vignette" aria-hidden="true" />
         </div>
-        <div className="vignette" aria-hidden="true" />
-      </div>
-  )
+    )
 }
