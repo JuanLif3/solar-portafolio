@@ -1,0 +1,46 @@
+.app {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.hud {
+    position: absolute;
+    left: clamp(1.5rem, 4vw, 3rem);
+    bottom: clamp(1.5rem, 4vw, 2.5rem);
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.hud__brand {
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #eef2fb;
+}
+
+.hud__hint {
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--muted);
+}
+
+/* Viñeta sutil para que la mirada caiga al centro */
+.vignette {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(
+            ellipse at 50% 50%,
+            transparent 35%,
+            rgba(3, 4, 10, 0.55) 85%,
+            rgba(3, 4, 10, 0.85) 100%
+    );
+    z-index: 1;
+}
