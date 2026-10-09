@@ -17,7 +17,7 @@ const vert = /* glsl */ `
   void main() {
     // Desplazamiento horizontal infinito hacia la izquierda.
     vec3 pos = position;
-    pos.x = mod(pos.x - uTime * aSpeed, uRange) - uRange * 0.5;
+    pos.x = mod(pos.x - uTime * aSpeed + uRange * 0.5, uRange) - uRange * 0.5;
 
     // Twinkle determinista por estrella.
     float seed = fract(sin(dot(position, vec3(12.9898, 78.233, 45.164))) * 43758.5453);
@@ -81,7 +81,7 @@ export function Starfield() {
             // Parallax: las estrellas más lejanas (z más negativo) se mueven
             // más lentas; las cercanas, más rápidas.
             const depthFactor = 1.0 - Math.abs(positions[i3 + 2]) / (DEPTH + 2)
-            speeds[i] = 0.8 + depthFactor * 4.5 + Math.random() * 0.8
+            speeds[i] = 1.5 + depthFactor * 5.0 + Math.random() * 1.2
             sizes[i] = 0.8 + Math.random() * 2.2
         }
 
