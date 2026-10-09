@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { systemStore, useSystemState, type SectionId } from '../store/system'
-import './HUD.css'
+import '../styles/HUD.css'
 
 type Section = { id: SectionId; label: string; href?: string }
 
