@@ -1,6 +1,7 @@
 import { useMemo, useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
+import { Html } from '@react-three/drei'
 
 export type PlanetKind =
     | 'mercury'
@@ -275,7 +276,7 @@ const ATMO: Partial<Record<PlanetKind, { color: string; intensity: number }>> = 
 /* ============================================================
  *  COMPONENTE
  * ============================================================ */
-export function Planet({ kind, distance, size, speed, tilt = 0 }: PlanetConfig) {
+export function Planet({ kind, distance, size, speed, tilt = 0, label }: PlanetConfig) {
     const orbitRef = useRef<THREE.Group>(null)
     const planetRef = useRef<THREE.Mesh>(null)
     const angleRef = useRef(Math.random() * Math.PI * 2)
@@ -371,11 +372,22 @@ export function Planet({ kind, distance, size, speed, tilt = 0 }: PlanetConfig) 
                             toneMapped={false}
                         />
                     </mesh>
-
                     {atmo && <Atmosphere color={atmo.color} intensity={atmo.intensity} />}
-
                     {kind === 'saturn' && <Rings />}
                 </group>
+
+                <Html
+                    center
+                    distanceFactor={11}
+                    position={[0, size + 0.35, 0]}
+                    zIndexRange={[10, 0]}
+                    style={{ pointerEvents: 'none', userSelect: 'none' }}
+                >
+                    <div className="planet-label">
+                        <span className="planet-label__dot" />
+                        <span className="planet-label__text">{label}</span>
+                    </div>
+                </Html>
             </group>
         </>
     )
