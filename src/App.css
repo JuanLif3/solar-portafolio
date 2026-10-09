@@ -4,6 +4,11 @@
     height: 100%;
 }
 
+.scene {
+    position: absolute;
+    inset: 0;
+}
+
 .hud {
     position: absolute;
     left: clamp(1.5rem, 4vw, 3rem);
@@ -31,7 +36,6 @@
     color: var(--muted);
 }
 
-/* Viñeta sutil para que la mirada caiga al centro */
 .vignette {
     position: absolute;
     inset: 0;
