@@ -51,9 +51,20 @@ export function Starfield() {
     const materialRef = useRef<THREE.ShaderMaterial>(null)
 
     const { geometry, uniforms } = useMemo(() => {
-        const count = 3200
-        const RANGE = 120
-        const DEPTH = 70
+        // Repartimos en una rejilla 16x16x16 = 4096 celdas → una estrella por celda.
+        // Sube o baja el número para más o menos densidad, pero siempre uniforme.
+        const GRID = 16
+        const count = GRID * GRID * GRID
+
+        const RANGE = 200      // ancho del wrap horizontal (X)
+        const HEIGHT = 160     // alto total (Y)
+        const DEPTH = 300      // profundidad total (Z)
+        const INNER_HOLE = 32  // radio vacío en el centro
+
+        // Tamaño de cada celda
+        const cellX = RANGE / GRID
+        const cellY = HEIGHT / GRID
+        const cellZ = DEPTH / GRID
 
         const positions = new Float32Array(count * 3)
         const colors = new Float32Array(count * 3)
@@ -68,21 +79,48 @@ export function Starfield() {
             new THREE.Color('#ffd9a8'),
         ]
 
-        for (let i = 0; i < count; i++) {
-            const i3 = i * 3
+        let i = 0
+        for (let gx = 0; gx < GRID; gx++) {
+            for (let gy = 0; gy < GRID; gy++) {
+                for (let gz = 0; gz < GRID; gz++) {
+                    const i3 = i * 3
 
-            positions[i3]     = (Math.random() - 0.5) * RANGE
-            positions[i3 + 1] = (Math.random() - 0.5) * 60
-            positions[i3 + 2] = -Math.random() * DEPTH - 2
+                    // Centro de la celda + jitter aleatorio dentro de la celda.
+                    // El jitter es del 90% del tamaño de la celda → no se sale nunca.
+                    const jx = (Math.random() - 0.5) * cellX * 0.9
+                    const jy = (Math.random() - 0.5) * cellY * 0.9
+                    const jz = (Math.random() - 0.5) * cellZ * 0.9
 
-            const c = palette[(Math.random() * palette.length) | 0]
-            colors[i3]     = c.r
-            colors[i3 + 1] = c.g
-            colors[i3 + 2] = c.b
+                    let px = (gx + 0.5) * cellX - RANGE * 0.5 + jx
+                    let py = (gy + 0.5) * cellY - HEIGHT * 0.5 + jy
+                    let pz = (gz + 0.5) * cellZ - DEPTH * 0.5 + jz
 
-            const depthFactor = 1.0 - Math.abs(positions[i3 + 2]) / (DEPTH + 2)
-            speeds[i] = 0.8 + depthFactor * 4.5 + Math.random() * 0.8
-            sizes[i] = 0.8 + Math.random() * 2.2
+                    // Si cae dentro del hueco central, empujarla hacia afuera
+                    // en lugar de descartarla (así no se rompe la uniformidad).
+                    const dist = Math.sqrt(px * px + py * py + pz * pz)
+                    if (dist < INNER_HOLE) {
+                        const s = INNER_HOLE / Math.max(dist, 0.001)
+                        px *= s
+                        py *= s
+                        pz *= s
+                    }
+
+                    positions[i3]     = px
+                    positions[i3 + 1] = py
+                    positions[i3 + 2] = pz
+
+                    const c = palette[(Math.random() * palette.length) | 0]
+                    colors[i3]     = c.r
+                    colors[i3 + 1] = c.g
+                    colors[i3 + 2] = c.b
+
+                    const depthFactor = Math.max(0, 1 - dist / 150)
+                    speeds[i] = 1.2 + depthFactor * 5.0 + Math.random() * 1.0
+                    sizes[i] = 0.8 + Math.random() * 2.4
+
+                    i++
+                }
+            }
         }
 
         const geo = new THREE.BufferGeometry()
