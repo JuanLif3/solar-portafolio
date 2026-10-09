@@ -42,9 +42,9 @@
     pointer-events: none;
     background: radial-gradient(
             ellipse at 50% 50%,
-            transparent 35%,
-            rgba(3, 4, 10, 0.55) 85%,
-            rgba(3, 4, 10, 0.85) 100%
+            transparent 55%,
+            rgba(3, 4, 10, 0.5) 90%,
+            rgba(3, 4, 10, 0.75) 100%
     );
     z-index: 1;
 }
