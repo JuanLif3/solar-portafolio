@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { systemStore, useSystemState } from '../store/system'
 import './PlanetPanel.css'
 
@@ -80,6 +81,16 @@ export function PlanetPanel() {
     const { focusedPlanet } = useSystemState()
     const info = focusedPlanet ? SECTION_INFO[focusedPlanet] : null
 
+    // Cerrar con Escape
+    useEffect(() => {
+        if (!focusedPlanet) return
+        const onKey = (e: KeyboardEvent) => {
+            if (e.key === 'Escape') systemStore.setFocusedPlanet(null)
+        }
+        window.addEventListener('keydown', onKey)
+        return () => window.removeEventListener('keydown', onKey)
+    }, [focusedPlanet])
+
     if (!focusedPlanet || !info) return null
 
     return (
@@ -93,8 +104,15 @@ export function PlanetPanel() {
                     onClick={() => systemStore.setFocusedPlanet(null)}
                     aria-label="Cerrar panel"
                 >
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
-                         stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                    <svg
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                    >
                         <line x1="18" y1="6" x2="6" y2="18" />
                         <line x1="6" y1="6" x2="18" y2="18" />
                     </svg>
