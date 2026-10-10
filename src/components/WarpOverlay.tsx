@@ -2,22 +2,21 @@ import { useEffect, useRef } from 'react'
 import './WarpOverlay.css'
 
 export interface WarpOverlayProps {
-    /** Duración total del salto en ms. */
     duration?: number
-    /** Se llama al terminar (para desmontar el overlay). */
+    onArrive?: () => void   // ← NUEVO: se llama durante el flash blanco
     onComplete?: () => void
 }
 
 type Phase = 'charge' | 'warp' | 'flash' | 'arrive'
 
 interface Star {
-    x: number      // -1 .. 1  (espacio normalizado)
-    y: number      // -1 .. 1
-    z: number      // profundidad: 1 = lejos, ~0 = pegado a la cámara
-    pz: number     // z del frame anterior (para la estela)
+    x: number
+    y: number
+    z: number
+    pz: number
     size: number
     bright: number
-    warm: number   // 0 = azul hielo, >0 = blanco cálido
+    warm: number
 }
 
 interface FrameState {
@@ -34,37 +33,27 @@ const NEAR_Z = 0.04
 const clamp01 = (v: number) => (v < 0 ? 0 : v > 1 ? 1 : v)
 const lerp = (a: number, b: number, t: number) => a + (b - a) * t
 
-/**
- * Curva maestra de la animación. Todo (velocidad, intensidad, flash, fase)
- * se deriva de un único progreso `p` en [0, 1]. Así la animación es
- * determinista, fácil de ajustar y no depende de timers paralelos.
- */
 function computeState(p: number): FrameState {
     let speed: number
     let phase: Phase
 
     if (p < 0.22) {
-        // Carga: las estrellas derivan despacio, "respirando"
         phase = 'charge'
         const k = p / 0.22
         speed = lerp(0.14, 0.34, k * k)
     } else if (p < 0.62) {
-        // Aceleración: crecimiento exponencial de la velocidad
         phase = p < 0.30 ? 'charge' : 'warp'
         const k = (p - 0.22) / 0.40
         speed = lerp(0.34, 6.2, Math.pow(k, 2.4))
     } else if (p < 0.74) {
-        // Pico: hipervelocidad
         phase = 'warp'
         const k = (p - 0.62) / 0.12
         speed = lerp(6.2, 9.0, k)
     } else if (p < 0.86) {
-        // Flash blanco
         phase = 'flash'
         const k = (p - 0.74) / 0.12
         speed = lerp(9.0, 2.6, Math.pow(k, 0.7))
     } else {
-        // Llegada: frenado suave
         phase = 'arrive'
         const k = (p - 0.86) / 0.14
         speed = lerp(2.6, 0.14, 1 - Math.pow(1 - k, 3))
@@ -87,16 +76,28 @@ function computeState(p: number): FrameState {
     return { speed, intensity: clamp01(intensity), flash: clamp01(flash), phase }
 }
 
-export function WarpOverlay({ duration = 3400, onComplete }: WarpOverlayProps) {
+export function WarpOverlay({
+                                duration = 3400,
+                                onArrive,   // ← NUEVO
+                                onComplete,
+                            }: WarpOverlayProps) {
     const rootRef = useRef<HTMLDivElement | null>(null)
     const stageRef = useRef<HTMLDivElement | null>(null)
     const canvasRef = useRef<HTMLCanvasElement | null>(null)
     const flashRef = useRef<HTMLDivElement | null>(null)
+
+    // ← NUEVO: refs estables para callbacks
     const completeRef = useRef(onComplete)
+    const arriveRef = useRef(onArrive)
+    const arrivedRef = useRef(false)
 
     useEffect(() => {
         completeRef.current = onComplete
     }, [onComplete])
+
+    useEffect(() => {
+        arriveRef.current = onArrive
+    }, [onArrive])
 
     useEffect(() => {
         const root = rootRef.current
@@ -147,7 +148,6 @@ export function WarpOverlay({ duration = 3400, onComplete }: WarpOverlayProps) {
             ctx.fillStyle = '#000'
             ctx.fillRect(0, 0, width, height)
 
-            // Núcleo luminoso central (se reutiliza cada frame)
             glowGrad = ctx.createRadialGradient(
                 halfW, halfH, 0,
                 halfW, halfH, Math.hypot(halfW, halfH) * 0.85,
@@ -178,7 +178,12 @@ export function WarpOverlay({ duration = 3400, onComplete }: WarpOverlayProps) {
             const p = clamp01((now - startTime) / total)
             const st = computeState(p)
 
-            // ---------- Motion blur: desvanecer el frame anterior ----------
+            // ← NUEVO: navegación en el pico del flash blanco
+            if (p >= 0.80 && !arrivedRef.current) {
+                arrivedRef.current = true
+                arriveRef.current?.()
+            }
+
             const fade = lerp(0.52, 0.20, st.intensity)
             ctx.globalCompositeOperation = 'source-over'
             ctx.fillStyle = `rgba(0, 0, 0, ${fade})`
@@ -190,7 +195,6 @@ export function WarpOverlay({ duration = 3400, onComplete }: WarpOverlayProps) {
             const dz = st.speed * dt
             const lwScale = 0.7 + st.intensity * 1.6
 
-            // ---------- Estrellas ----------
             for (let i = 0; i < stars.length; i++) {
                 const s = stars[i]
                 s.pz = s.z
@@ -201,19 +205,16 @@ export function WarpOverlay({ duration = 3400, onComplete }: WarpOverlayProps) {
                     continue
                 }
 
-                // Proyección perspectiva: pantalla = centro + (x / z) * mitad
                 const px = halfW + (s.x * halfW) / s.pz
                 const py = halfH + (s.y * halfH) / s.pz
 
-                // Rechazo rápido: si el punto anterior ya está fuera, la
-                // estela (que va radialmente hacia fuera) también lo estará.
                 if (px < -80 || px > width + 80 || py < -80 || py > height + 80) continue
 
                 const sx = halfW + (s.x * halfW) / s.z
                 const sy = halfH + (s.y * halfH) / s.z
 
                 const depth = 1 - s.z
-                const appear = Math.min(1, depth * 9) // fade-in al entrar en escena
+                const appear = Math.min(1, depth * 9)
                 const alpha = (0.35 + 0.65 * depth) * appear * s.bright
 
                 const r = Math.round(165 + 90 * depth + s.warm * 60)
@@ -228,7 +229,6 @@ export function WarpOverlay({ duration = 3400, onComplete }: WarpOverlayProps) {
                 ctx.stroke()
             }
 
-            // ---------- Núcleo luminoso ----------
             if (glowGrad) {
                 ctx.globalAlpha = st.intensity * 0.55
                 ctx.fillStyle = glowGrad
@@ -236,7 +236,6 @@ export function WarpOverlay({ duration = 3400, onComplete }: WarpOverlayProps) {
                 ctx.globalAlpha = 1
             }
 
-            // ---------- Sincronizar capas CSS ----------
             const iStr = st.intensity.toFixed(2)
             if (iStr !== lastIntensity) {
                 root.style.setProperty('--warp', iStr)

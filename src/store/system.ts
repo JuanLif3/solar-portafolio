@@ -27,22 +27,54 @@ let state: SystemState = {
     showLabels: true,
     showOrbits: true,
     activeSection: null,
+    focusedPlanet: null,
+    warping: false,
+    warpTarget: null,
 }
 
 const listeners = new Set<() => void>()
 const emit = () => listeners.forEach((l) => l())
 
-type ControlsLike = { reset: () => void }
-let controlsRef: ControlsLike | null = null
+type ControlsLike = {
+    reset: () => void
+} | null
+
+let controlsRef: ControlsLike = null
 
 export const systemStore = {
     getState: () => state,
+
     subscribe: (l: () => void) => {
         listeners.add(l)
-        return () => listeners.delete(l)
+        return () => {
+            listeners.delete(l)
+        }
     },
 
-    focusedPlanet: null,
+    setSpeed: (n: number) => {
+        state = { ...state, speed: n }
+        emit()
+    },
+
+    togglePause: () => {
+        state = { ...state, paused: !state.paused }
+        emit()
+    },
+
+    toggleLabels: () => {
+        state = { ...state, showLabels: !state.showLabels }
+        emit()
+    },
+
+    toggleOrbits: () => {
+        state = { ...state, showOrbits: !state.showOrbits }
+        emit()
+    },
+
+    setActiveSection: (id: SectionId | null) => {
+        state = { ...state, activeSection: id }
+        emit()
+    },
 
     setFocusedPlanet: (name: string | null) => {
         state = { ...state, focusedPlanet: name }
@@ -54,27 +86,16 @@ export const systemStore = {
         emit()
     },
 
-    setSpeed: (n: number) =>
-        ((state = { ...state, speed: n }), emit()),
-
-    togglePause: () =>
-        ((state = { ...state, paused: !state.paused }), emit()),
-
-    toggleLabels: () =>
-        ((state = { ...state, showLabels: !state.showLabels }), emit()),
-
-    toggleOrbits: () =>
-        ((state = { ...state, showOrbits: !state.showOrbits }), emit()),
-
-    setActiveSection: (id: SectionId | null) =>
-        ((state = { ...state, activeSection: id }), emit()),
-
-    // --- Controles de cámara (registrados desde Scene) ---
-    _setControls: (c: ControlsLike | null) => {
+    _setControls: (c: ControlsLike) => {
         controlsRef = c
     },
+
+    getControls: () => controlsRef,
+
     resetView: () => {
-        controlsRef?.reset()
+        if (controlsRef && typeof controlsRef.reset === 'function') {
+            controlsRef.reset()
+        }
     },
 }
 
