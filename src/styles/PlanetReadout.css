@@ -935,6 +935,170 @@
 }
 
 /* ============================================================
+ *  TRAVEL BUTTON — salto hiperespacial
+ * ============================================================ */
+.readout__travel {
+    margin-bottom: 1.2rem;
+    padding-top: 1rem;
+    border-top: 1px dashed rgba(255, 217, 122, 0.18);
+}
+
+.readout__travel-btn {
+    position: relative;
+    display: grid;
+    grid-template-columns: auto 1fr auto auto;
+    align-items: center;
+    gap: 0.9rem;
+    width: 100%;
+    padding: 0.85rem 1rem 0.85rem 0.9rem;
+    border-radius: 0.75rem;
+    border: 1px solid rgba(255, 217, 122, 0.35);
+    background:
+            linear-gradient(
+                    135deg,
+                    rgba(255, 217, 122, 0.08) 0%,
+                    rgba(176, 108, 255, 0.06) 100%
+            );
+    cursor: pointer;
+    overflow: hidden;
+    font-family: inherit;
+    text-align: left;
+    transition:
+            border-color 0.35s ease,
+            background-color 0.35s ease,
+            transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+            box-shadow 0.35s ease;
+}
+
+/* Barrido de luz al hover */
+.readout__travel-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+            120deg,
+            transparent 0%,
+            rgba(255, 217, 122, 0.25) 50%,
+            transparent 100%
+    );
+    transform: translateX(-100%);
+    transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    pointer-events: none;
+}
+
+.readout__travel-btn:hover {
+    border-color: rgba(255, 217, 122, 0.7);
+    transform: translateY(-2px);
+    box-shadow:
+            0 12px 40px -10px rgba(255, 217, 122, 0.5),
+            0 0 0 1px rgba(255, 217, 122, 0.35) inset;
+}
+
+.readout__travel-btn:hover::before {
+    transform: translateX(100%);
+}
+
+/* Icono giratorio */
+.readout__travel-icon {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 2.4rem;
+    height: 2.4rem;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 217, 122, 0.55);
+    background: rgba(8, 12, 24, 0.6);
+    flex: 0 0 auto;
+}
+
+.readout__travel-icon::before {
+    content: '';
+    position: absolute;
+    inset: 3px;
+    border-radius: 50%;
+    border: 1px dashed rgba(255, 217, 122, 0.7);
+    animation: travelIconSpin 6s linear infinite;
+}
+
+.readout__travel-icon-inner {
+    width: 0.6rem;
+    height: 0.6rem;
+    border-radius: 50%;
+    background: #ffd97a;
+    box-shadow: 0 0 12px #ffd97a;
+    animation: travelIconPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes travelIconSpin {
+    to { transform: rotate(360deg); }
+}
+
+@keyframes travelIconPulse {
+    0%, 100% { transform: scale(1);   opacity: 1; }
+    50%      { transform: scale(0.6); opacity: 0.6; }
+}
+
+/* Texto */
+.readout__travel-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    min-width: 0;
+}
+
+.readout__travel-eyebrow {
+    font-family: var(--font-display);
+    font-size: 0.58rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: rgba(255, 217, 122, 0.7);
+}
+
+.readout__travel-label {
+    font-family: var(--font-display);
+    font-size: 0.92rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: #eef2fb;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.readout__travel-route {
+    font-family: 'SFMono-Regular', ui-monospace, Menlo, Consolas, monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.04em;
+    color: rgba(255, 217, 122, 0.55);
+    padding: 0.25rem 0.5rem;
+    border: 1px solid rgba(255, 217, 122, 0.2);
+    border-radius: 4px;
+    background: rgba(255, 217, 122, 0.04);
+    white-space: nowrap;
+    flex: 0 0 auto;
+}
+
+.readout__travel-arrow {
+    color: #ffd97a;
+    font-size: 1.1rem;
+    transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.readout__travel-btn:hover .readout__travel-arrow {
+    transform: translateX(4px);
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .readout__travel-btn {
+        grid-template-columns: auto 1fr auto;
+    }
+    .readout__travel-route {
+        display: none;
+    }
+}
+
+/* ============================================================
  *  FOOTER
  * ============================================================ */
 .readout__foot {
