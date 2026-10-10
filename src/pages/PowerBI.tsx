@@ -1,6 +1,15 @@
-import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { DownloadButton } from '../components/DownloadButton'
+import {
+    ChartAmenazaImpacto,
+    ChartVentasUF,
+    ChartEmpresasTrabajadores,
+    ChartHectareasVentas,
+    ChartVegetacion,
+    ChartPrecipitacionVentas,
+    PowerBIChartsGroupC,
+    ChartHeladasHeatmap,
+} from '../components/PowerBICharts'
 import '../styles/PowerBI.css'
 
 /* ============================================================
@@ -10,170 +19,6 @@ const PBIX_DOWNLOAD_URL =
     'https://correoaiep-my.sharepoint.com/:u:/g/personal/juan_riverosp_correoaiep_cl/IQAaZGM-K2VxSL462Y0141XzASN3wPb2IjjsA7_o4gIlF1k?e=jrz1vr&download=1'
 
 const PBIX_FILENAME = 'Proyecto_Colchagua.pbix'
-
-/* ============================================================
- *  GALERÍA DE CAPTURAS DEL DASHBOARD
- * ============================================================ */
-type BlockLayout = 'A' | 'B' | 'C'
-
-type Visual = {
-    id: string
-    n: string
-    title: string
-    subtitle: string
-    description: string
-    insight: string
-    image: string
-    layout: BlockLayout
-    /** Clases de tamaño dentro del grid */
-    span?: 'wide' | 'tall' | 'full' | 'normal'
-}
-
-const BLOCKS: { id: BlockLayout; index: string; title: string; subtitle: string }[] = [
-    {
-        id: 'A',
-        index: '01',
-        title: 'Contexto y concentración del riesgo',
-        subtitle: 'Dónde se acumula el empleo agrícola y cómo se distribuye el daño',
-    },
-    {
-        id: 'B',
-        index: '02',
-        title: 'Efecto dominó territorial',
-        subtitle: 'Incendios, vegetación nativa y su impacto sobre las ventas',
-    },
-    {
-        id: 'C',
-        index: '03',
-        title: 'Efecto dominó sectorial',
-        subtitle: 'Colapso de cereales y apicultura bajo estrés climático',
-    },
-]
-
-const VISUALS: Visual[] = [
-    /* ---------- BLOQUE A ---------- */
-    {
-        id: 'amenaza-impacto',
-        n: 'A1',
-        title: 'Amenaza vs Impacto',
-        subtitle: 'Scatter · Hectáreas quemadas vs crecimiento de ventas',
-        description:
-            'Cruce de hectáreas quemadas por incendios (eje X) contra crecimiento de ventas agro (eje Y). Cada burbuja es una comuna; el tamaño representa la concentración de cultivos. Las burbujas azul claro son comunas críticas (alta fruticultura + alta siniestralidad).',
-        insight:
-            'Chimbarongo y San Fernando se aíslan como outliers. El resto de las comunas se agrupa en el cuadrante bajo-impacto — la vulnerabilidad no se distribuye parejo.',
-        image: '/powerbi/amenaza-impacto.png',
-        layout: 'A',
-        span: 'wide',
-    },
-    {
-        id: 'ventas-uf-comuna',
-        n: 'A2',
-        title: 'Ventas Totales UF por comuna',
-        subtitle: 'Ranking de volumen económico · 2018-2021',
-        description:
-            'Volumen agregado de ventas en UF para cada comuna de la provincia. San Fernando lidera con casi 50 mill. UF, seguido por Santa Cruz y Chimbarongo.',
-        insight:
-            'El 60% del volumen provincial se concentra en 3 comunas (San Fernando, Santa Cruz, Chimbarongo). Un shock en cualquiera de ellas mueve la aguja provincial completa.',
-        image: '/powerbi/ventas-uf-comuna.png',
-        layout: 'A',
-        span: 'tall',
-    },
-    {
-        id: 'empresas-trabajadores',
-        n: 'A3',
-        title: 'Empresas y trabajadores por año',
-        subtitle: 'Doble eje · 2018-2021',
-        description:
-            'Evolución anual del número de empresas formales (azul oscuro, eje derecho) frente al número de trabajadores dependientes (azul claro, eje izquierdo). Las dos series divergen a partir de 2020.',
-        insight:
-            'Las empresas crecieron (+8%) mientras los trabajadores cayeron (-4.000 en 2021). Las PYMEs sobrevivieron a costa de reducir personal — el shock climático y la pandemia golpearon al empleo, no a la estructura empresarial.',
-        image: '/powerbi/empresas-trabajadores.png',
-        layout: 'A',
-        span: 'tall',
-    },
-
-    /* ---------- BLOQUE B ---------- */
-    {
-        id: 'hectareas-ventas',
-        n: 'B1',
-        title: 'Hectáreas quemadas vs Ventas Agro',
-        subtitle: 'Barras + línea · 2018-2021',
-        description:
-            'Combinación de hectáreas quemadas por incendios (barras azules) contra ventas agro (línea azul oscura, eje derecho). Revela la desconexión entre el crecimiento económico sostenido y la aceleración del daño territorial.',
-        insight:
-            'Las hectáreas quemadas crecieron 17× entre 2018 y 2021 (200 → 3.500 ha) mientras las ventas solo crecían 1,5×. El daño escala mucho más rápido que el beneficio.',
-        image: '/powerbi/hectareas-ventas.png',
-        layout: 'B',
-        span: 'tall',
-    },
-    {
-        id: 'vegetacion-plantaciones',
-        n: 'B2',
-        title: 'Vegetación, Plantaciones y Ha_Agricolas',
-        subtitle: 'Composición del suelo afectado · 100% apilado',
-        description:
-            'Descomposición porcentual de la superficie quemada por comuna, distinguiendo vegetación natural (celeste), plantaciones forestales (azul oscuro) y superficie agrícola productiva (naranja).',
-        insight:
-            'El fuego afectó mayormente vegetación nativa y matorrales — NO cultivos productivos. El daño a las PYMEs fue indirecto: estrés ambiental, pérdida de polinizadores y cortes de servicios, no pérdida directa de frutales.',
-        image: '/powerbi/vegetacion-plantaciones.png',
-        layout: 'B',
-        span: 'tall',
-    },
-    {
-        id: 'precipitacion-ventas',
-        n: 'B3',
-        title: 'Precipitación Anual mm vs Ventas Agro',
-        subtitle: 'Barras + línea · Efecto sequía',
-        description:
-            'Precipitación anual acumulada (barras) contra las ventas agro del período (línea). Permite leer el efecto de la sequía estructural de 2019 sobre el desempeño económico.',
-        insight:
-            'La caída de precipitación en 2019 coincidió con el peor año de empleo agrícola (2020-2021). El déficit hídrico actúa como disparador retardado: el impacto económico se ve 1-2 años después del evento climático.',
-        image: '/powerbi/precipitacion-ventas.png',
-        layout: 'B',
-        span: 'tall',
-    },
-
-    /* ---------- BLOQUE C ---------- */
-    {
-        id: 'empresas-cereales-apicultura',
-        n: 'C1',
-        title: 'Empresas · Cereales vs Apicultura',
-        subtitle: 'Número de empresas formales · 2018-2021',
-        description:
-            'Cantidad de empresas formales dedicadas al cultivo de cereales (trigo y maíz) vs las dedicadas a la apicultura. Ambas series muestran la contracción del sector tras el shock climático compuesto de 2019.',
-        insight:
-            'La apicultura mostró recuperación post-2020 (nueva formalización), mientras los cereales siguieron cayendo. La sequía golpeó más fuerte a los cultivos extensivos.',
-        image: '/powerbi/empresas-cereales-apicultura.png',
-        layout: 'C',
-        span: 'full',
-    },
-    {
-        id: 'ventas-cereales-apicultura',
-        n: 'C2',
-        title: 'Ventas · Cereales vs Apicultura',
-        subtitle: 'Ventas anuales · 2018-2021',
-        description:
-            'Volumen de ventas de cereales (trigo + maíz) contra apicultura. Ambas series cayeron con fuerza durante 2019-2020 y solo la apicultura mostró un rebote claro en 2021.',
-        insight:
-            'La caída conjunta de ventas en 2020 confirma el efecto dominó: la sequía de 2019 y las olas de calor deshidrataron cultivos y redujeron la floración disponible para las abejas, golpeando ambos rubros simultáneamente.',
-        image: '/powerbi/ventas-cereales-apicultura.png',
-        layout: 'C',
-        span: 'full',
-    },
-    {
-        id: 'trabajadores-cereales-apicultura',
-        n: 'C3',
-        title: 'Trabajadores · Cereales vs Apicultura',
-        subtitle: 'Empleo formal del sector · 2018-2021',
-        description:
-            'Cantidad de trabajadores dependientes en cereales y apicultura. Ambas series tocaron su mínimo histórico en 2020 y comenzaron a recuperarse en 2021, sin volver aún a los niveles de 2018.',
-        insight:
-            'El empleo cayó 40% en cereales y 35% en apicultura durante el período. Es la prueba más dura del efecto dominó sectorial: el shock climático destruyó puestos de trabajo formales que tomarán años recuperar.',
-        image: '/powerbi/trabajadores-cereales-apicultura.png',
-        layout: 'C',
-        span: 'full',
-    },
-]
 
 /* ============================================================
  *  KPIs RESUMEN
@@ -232,8 +77,6 @@ const STACK = [
  *  COMPONENTE
  * ============================================================ */
 export function PowerBI() {
-    const [openImage, setOpenImage] = useState<Visual | null>(null)
-
     return (
         <main className="pb">
             {/* ---------- Fondo ---------- */}
@@ -294,8 +137,8 @@ export function PowerBI() {
                             <span className="pb__meta-value">+180.000</span>
                         </div>
                         <div className="pb__meta-item">
-                            <span className="pb__meta-label">Vistas del reporte</span>
-                            <span className="pb__meta-value">05 capturas</span>
+                            <span className="pb__meta-label">Visualizaciones</span>
+                            <span className="pb__meta-value">09 gráficos</span>
                         </div>
                     </div>
 
@@ -338,83 +181,85 @@ export function PowerBI() {
                 ))}
             </section>
 
-            {/* ============ GALERÍA DE CAPTURAS ============ */}
+            {/* ============ BLOQUES DE GRÁFICOS POWER BI ============ */}
             <section className="pb__visuals">
-                {BLOCKS.map((block) => {
-                    const blockVisuals = VISUALS.filter((v) => v.layout === block.id)
 
-                    return (
-                        <div key={block.id} className={`pb-block pb-block--${block.id}`}>
-                            <header className="pb__section-head">
-                                <span className="pb__section-index">{block.index}</span>
-                                <div>
-                                    <h2 className="pb__section-title">{block.title}</h2>
-                                    <p className="pb__section-desc">{block.subtitle}</p>
-                                </div>
-                            </header>
-
-                            <div className={`pb-block__grid pb-block__grid--${block.id}`}>
-                                {blockVisuals.map((v) => (
-                                    <article
-                                        key={v.id}
-                                        className={`pb-visual pb-visual--${v.span ?? 'normal'}`}
-                                        onClick={() => setOpenImage(v)}
-                                        role="button"
-                                        tabIndex={0}
-                                        onKeyDown={(e) => {
-                                            if (e.key === 'Enter' || e.key === ' ') {
-                                                e.preventDefault()
-                                                setOpenImage(v)
-                                            }
-                                        }}
-                                    >
-                                        <span className="pb-visual__bracket pb-visual__bracket--tl" />
-                                        <span className="pb-visual__bracket pb-visual__bracket--tr" />
-                                        <span className="pb-visual__bracket pb-visual__bracket--bl" />
-                                        <span className="pb-visual__bracket pb-visual__bracket--br" />
-
-                                        <header className="pb-visual__head">
-                                            <span className="pb-visual__n">{v.n}</span>
-                                            <span className="pb-visual__subtitle">{v.subtitle}</span>
-                                        </header>
-
-                                        <div className="pb-visual__img-wrap">
-                                            <img
-                                                src={v.image}
-                                                alt={v.title}
-                                                loading="lazy"
-                                                className="pb-visual__img"
-                                            />
-                                            <span className="pb-visual__zoom" aria-hidden="true">
-                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
-                                         stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-                                        <circle cx="11" cy="11" r="8" />
-                                        <line x1="21" y1="21" x2="16.65" y2="16.65" />
-                                        <line x1="11" y1="8" x2="11" y2="14" />
-                                        <line x1="8" y1="11" x2="14" y2="11" />
-                                    </svg>
-                                </span>
-                                        </div>
-
-                                        <h3 className="pb-visual__title">{v.title}</h3>
-                                        <p className="pb-visual__desc">{v.description}</p>
-
-                                        <div className="pb-visual__insight">
-                                            <span className="pb-visual__insight-mark">▸</span>
-                                            <span>{v.insight}</span>
-                                        </div>
-                                    </article>
-                                ))}
-                            </div>
+                {/* BLOQUE 01 · Contexto y concentración del riesgo */}
+                <div className="pb-block">
+                    <header className="pb__section-head">
+                        <span className="pb__section-index">01</span>
+                        <div>
+                            <h2 className="pb__section-title">Contexto y concentración del riesgo</h2>
+                            <p className="pb__section-desc">
+                                Dónde se acumula el empleo agrícola y cómo se distribuye el daño territorial.
+                            </p>
                         </div>
-                    )
-                })}
+                    </header>
+
+                    <div className="pb-block__grid pb-block__grid--A">
+                        <div className="pbi-slot pbi-slot--wide">
+                            <ChartAmenazaImpacto />
+                        </div>
+                        <div className="pbi-slot">
+                            <ChartVentasUF />
+                        </div>
+                        <div className="pbi-slot">
+                            <ChartEmpresasTrabajadores />
+                        </div>
+                        <div className="pbi-slot">
+                            <ChartHeladasHeatmap />
+                        </div>
+                    </div>
+                </div>
+
+                {/* BLOQUE 02 · Efecto dominó territorial */}
+                <div className="pb-block">
+                    <header className="pb__section-head">
+                        <span className="pb__section-index">02</span>
+                        <div>
+                            <h2 className="pb__section-title">Efecto dominó territorial</h2>
+                            <p className="pb__section-desc">
+                                Incendios, vegetación nativa y su impacto sobre las ventas del sector.
+                            </p>
+                        </div>
+                    </header>
+
+                    <div className="pb-block__grid pb-block__grid--B">
+                        <div className="pbi-slot">
+                            <ChartHectareasVentas />
+                        </div>
+                        <div className="pbi-slot">
+                            <ChartVegetacion />
+                        </div>
+                        <div className="pbi-slot">
+                            <ChartPrecipitacionVentas />
+                        </div>
+                    </div>
+                </div>
+
+                {/* BLOQUE 03 · Efecto dominó sectorial */}
+                <div className="pb-block">
+                    <header className="pb__section-head">
+                        <span className="pb__section-index">03</span>
+                        <div>
+                            <h2 className="pb__section-title">Efecto dominó sectorial</h2>
+                            <p className="pb__section-desc">
+                                Colapso de cereales y apicultura bajo estrés climático compuesto.
+                            </p>
+                        </div>
+                    </header>
+
+                    <div className="pb-block__grid pb-block__grid--C">
+                        <PowerBIChartsGroupC />
+                    </div>
+                </div>
+
             </section>
 
             {/* ============ CONCLUSIONES ============ */}
             <section className="pb__findings">
                 <header className="pb__section-head">
-                    <span className="pb__section-index">02</span>
+                    <span className="pb__section-index">04</span>
                     <div>
                         <h2 className="pb__section-title">Conclusiones sobre vulnerabilidad</h2>
                         <p className="pb__section-desc">
@@ -450,7 +295,7 @@ export function PowerBI() {
             {/* ============ STACK ============ */}
             <section className="pb__stack">
                 <header className="pb__section-head">
-                    <span className="pb__section-index">03</span>
+                    <span className="pb__section-index">05</span>
                     <div>
                         <h2 className="pb__section-title">Stack técnico</h2>
                         <p className="pb__section-desc">
@@ -493,58 +338,6 @@ export function PowerBI() {
                 <span>// Proyecto ISI802 · Business Intelligence</span>
                 <span>Región de O'Higgins · Chile</span>
             </footer>
-
-            {/* ============ LIGHTBOX ============ */}
-            {openImage && (
-                <div
-                    className="pb-lightbox"
-                    onClick={() => setOpenImage(null)}
-                    role="dialog"
-                    aria-modal="true"
-                >
-                    <button
-                        type="button"
-                        className="pb-lightbox__close"
-                        onClick={() => setOpenImage(null)}
-                        aria-label="Cerrar"
-                    >
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
-                             stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-                            <line x1="18" y1="6" x2="6" y2="18" />
-                            <line x1="6" y1="6" x2="18" y2="18" />
-                        </svg>
-                    </button>
-
-                    <div
-                        className="pb-lightbox__inner"
-                        onClick={(e) => e.stopPropagation()}
-                    >
-                        <header className="pb-lightbox__head">
-                            <span className="pb-lightbox__n">{openImage.n}</span>
-                            <div>
-                                <h3 className="pb-lightbox__title">{openImage.title}</h3>
-                                <span className="pb-lightbox__subtitle">
-                                    {openImage.subtitle}
-                                </span>
-                            </div>
-                        </header>
-
-                        <img
-                            src={openImage.image}
-                            alt={openImage.title}
-                            className="pb-lightbox__img"
-                        />
-
-                        <div className="pb-lightbox__body">
-                            <p className="pb-lightbox__desc">{openImage.description}</p>
-                            <p className="pb-lightbox__insight">
-                                <span className="pb-lightbox__insight-mark">▸</span>
-                                {openImage.insight}
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            )}
         </main>
     )
 }
