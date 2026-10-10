@@ -1,0 +1,134 @@
+/* ==========================================================================
+   WARP OVERLAY — Salto hiperespacial cinematográfico
+   ========================================================================== */
+
+.warp {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    overflow: hidden;
+    background: #000;
+    pointer-events: all;
+    opacity: 1;
+    isolation: isolate;
+    --warp: 0; /* 0 = calma · 1 = hipervelocidad (lo escribe el canvas) */
+}
+
+/* --------------------------------------------------------------------------
+   Escenario (canvas + shake de cámara)
+   El inset negativo da margen para que el temblor nunca descubra bordes.
+   -------------------------------------------------------------------------- */
+.warp__stage {
+    position: absolute;
+    inset: -20px;
+    will-change: transform;
+    backface-visibility: hidden;
+}
+
+.warp[data-phase='warp'] .warp__stage {
+    animation: warpShake 0.32s linear infinite;
+}
+
+@keyframes warpShake {
+    0%   { transform: translate3d(0, 0, 0); }
+    12%  { transform: translate3d(-3.5px, 2.5px, 0); }
+    25%  { transform: translate3d(3px, -3px, 0); }
+    37%  { transform: translate3d(-2.5px, -3.5px, 0); }
+    50%  { transform: translate3d(3.5px, 2px, 0); }
+    62%  { transform: translate3d(-3px, 3.5px, 0); }
+    75%  { transform: translate3d(2.5px, -2.5px, 0); }
+    87%  { transform: translate3d(-3.5px, -2px, 0); }
+    100% { transform: translate3d(0, 0, 0); }
+}
+
+.warp__canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+/* --------------------------------------------------------------------------
+   Bloom central (se intensifica con --warp)
+   -------------------------------------------------------------------------- */
+.warp__bloom {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(
+            circle at 50% 50%,
+            rgba(200, 232, 255, 0.55) 0%,
+            rgba(96, 156, 255, 0.22) 18%,
+            rgba(40, 90, 220, 0.08) 38%,
+            rgba(0, 0, 0, 0) 62%
+    );
+    mix-blend-mode: screen;
+    opacity: calc(var(--warp, 0) * 0.9);
+    will-change: opacity;
+}
+
+/* --------------------------------------------------------------------------
+   Viñeta profunda
+   -------------------------------------------------------------------------- */
+.warp__vignette {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(
+            ellipse at 50% 50%,
+            rgba(0, 0, 0, 0) 32%,
+            rgba(0, 0, 0, 0.45) 68%,
+            rgba(0, 0, 0, 0.92) 100%
+    );
+    opacity: calc(0.85 + var(--warp, 0) * 0.15);
+}
+
+/* --------------------------------------------------------------------------
+   Grano de película
+   -------------------------------------------------------------------------- */
+.warp__noise {
+    position: absolute;
+    inset: -10%;
+    pointer-events: none;
+    opacity: calc(0.05 + var(--warp, 0) * 0.05);
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 220px 220px;
+    mix-blend-mode: overlay;
+    animation: warpGrain 0.5s steps(2, end) infinite;
+    will-change: transform;
+}
+
+@keyframes warpGrain {
+    0%   { transform: translate3d(0, 0, 0); }
+    20%  { transform: translate3d(-4%, 3%, 0); }
+    40%  { transform: translate3d(3%, -4%, 0); }
+    60%  { transform: translate3d(-3%, -3%, 0); }
+    80%  { transform: translate3d(4%, 2%, 0); }
+    100% { transform: translate3d(0, 0, 0); }
+}
+
+/* --------------------------------------------------------------------------
+   Flash de supernova (opacidad controlada por JS)
+   -------------------------------------------------------------------------- */
+.warp__flash {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(
+            circle at 50% 50%,
+            #ffffff 0%,
+            #f2f8ff 45%,
+            #ffffff 100%
+    );
+    opacity: 0;
+    will-change: opacity;
+}
+
+/* --------------------------------------------------------------------------
+   Accesibilidad
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+    .warp[data-phase='warp'] .warp__stage { animation: none; }
+    .warp__noise { animation: none; }
+}
