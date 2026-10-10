@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { systemStore, useSystemState } from '../store/system'
-import './PlanetReadout.css'
+import '../styles/PlanetReadout.css'
 
 type Telemetry = { label: string; value: string }
 
