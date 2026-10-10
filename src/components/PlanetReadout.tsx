@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { systemStore, useSystemState } from '../store/system'
-import '../styles/PlanetReadout.css'
+import './PlanetReadout.css'
 
 type Telemetry = { label: string; value: string }
 
@@ -63,8 +63,8 @@ const SECTION_INFO: Record<string, Info> = {
             { label: 'USUARIOS', value: '+12 000' },
             { label: 'UPTIME',   value: '99.98%' },
         ],
-        route: '/powerbi',
-        routeLabel: 'DASHBOARD COLCHAGUA',
+        route: '/proyectos',
+        routeLabel: 'Archivo de proyectos',
     },
     '04 · Experiencia': {
         index: '04',
@@ -113,6 +113,8 @@ const SECTION_INFO: Record<string, Info> = {
             { label: 'PROMEDIO',     value: '94%' },
             { label: 'VIGENTES',     value: '7 activas' },
         ],
+        route: '/powerbi',
+        routeLabel: 'Dashboard Colchagua',
     },
     '07 · Blog': {
         index: '07',
@@ -129,6 +131,8 @@ const SECTION_INFO: Record<string, Info> = {
             { label: 'LECTURAS',  value: '+8 400' },
             { label: 'SUSCRIPTORES', value: '340' },
         ],
+        route: '/notebooks',
+        routeLabel: 'Notebooks de análisis',
     },
     '08 · Contacto': {
         index: '08',
@@ -175,7 +179,7 @@ function useTypewriter(text: string, speed = 12, delay = 320) {
 }
 
 /* ============================================================
- *  COORDENADAS EN VIVO (simulan tracking del objeto)
+ *  COORDENADAS EN VIVO
  * ============================================================ */
 function useLiveCoords(active: string | null) {
     const [coords, setCoords] = useState({ lat: 0, lon: 0, alt: 0, vel: 0 })
@@ -247,7 +251,6 @@ export function PlanetReadout() {
 
         const timers: ReturnType<typeof setTimeout>[] = []
 
-        // Barra de decodificación 0 → 100
         let p = 0
         const progInterval = setInterval(() => {
             p += 4 + Math.random() * 6
@@ -258,11 +261,9 @@ export function PlanetReadout() {
             setDecodeProgress(p)
         }, 45)
 
-        // Telemetría escalonada
         for (let i = 1; i <= 6; i++) {
             timers.push(setTimeout(() => setRevealedTelemetry(i), 900 + i * 110))
         }
-        // Bullets
         for (let i = 1; i <= 3; i++) {
             timers.push(setTimeout(() => setRevealedBullets(i), 1700 + i * 110))
         }
@@ -287,7 +288,6 @@ export function PlanetReadout() {
     return (
         <div className={`readout-anchor ${isClosing ? 'is-closing' : ''}`}>
             <div className="readout-shell">
-                {/* ---- Overlays CRT ---- */}
                 <div className="readout__crt-scanlines" aria-hidden="true" />
                 <div className="readout__crt-flicker" aria-hidden="true" />
                 <div className="readout__crt-flash" aria-hidden="true" />
@@ -295,13 +295,11 @@ export function PlanetReadout() {
                 <div className="readout__crt-beam" aria-hidden="true" />
 
                 <aside className="readout" role="dialog" aria-modal="false">
-                    {/* Esquinas HUD */}
                     <span className="readout__corner readout__corner--tl" />
                     <span className="readout__corner readout__corner--tr" />
                     <span className="readout__corner readout__corner--bl" />
                     <span className="readout__corner readout__corner--br" />
 
-                    {/* Punto luminoso viajero */}
                     <span className="readout__border-pulse" aria-hidden="true" />
 
                     {/* ============ HEADER ============ */}
@@ -353,7 +351,7 @@ export function PlanetReadout() {
                         <span className="readout__scanline-sweep" />
                     </div>
 
-                    {/* ============ TITLE (con aberración cromática) ============ */}
+                    {/* ============ TITLE ============ */}
                     <h2 className="readout__title" data-text={info.title}>
                         {info.title}
                     </h2>
@@ -381,13 +379,12 @@ export function PlanetReadout() {
                             />
                         </div>
                         <span className="readout__decode-value">
-                            {decodeProgress.toFixed(0).padStart(3, '0')}%
-                        </span>
+              {decodeProgress.toFixed(0).padStart(3, '0')}%
+            </span>
                     </div>
 
-                    {/* ============ GRID: telemetría + side (radar + wave) ============ */}
+                    {/* ============ GRID: telemetría + side ============ */}
                     <div className="readout__grid">
-                        {/* ---- Telemetría ---- */}
                         <section className="readout__telemetry">
                             <div className="readout__section-label">
                                 <span className="readout__label-dash" />
@@ -409,9 +406,7 @@ export function PlanetReadout() {
                             </ul>
                         </section>
 
-                        {/* ---- Side column: mini radar + wave ---- */}
                         <aside className="readout__side">
-                            {/* Mini radar */}
                             <div className="readout__radar" aria-hidden="true">
                                 <span className="readout__radar-ring readout__radar-ring--1" />
                                 <span className="readout__radar-ring readout__radar-ring--2" />
@@ -422,37 +417,45 @@ export function PlanetReadout() {
                                 <span className="readout__radar-blip" />
                             </div>
 
-
+                            <div className="readout__wave" aria-hidden="true">
+                                {Array.from({ length: 22 }).map((_, i) => (
+                                    <span
+                                        key={i}
+                                        className="readout__wave-bar"
+                                        style={{ animationDelay: `${i * 60}ms` }}
+                                    />
+                                ))}
+                            </div>
                         </aside>
                     </div>
 
-                    {/* ============ COORDS — franja horizontal ancho completo ============ */}
+                    {/* ============ COORDS ============ */}
                     <div className="readout__coords">
                         <div className="readout__coord">
                             <span className="readout__coord-label">LAT</span>
                             <span className="readout__coord-value">
-                                {coords.lat >= 0 ? '+' : '−'}
+                {coords.lat >= 0 ? '+' : '−'}
                                 {Math.abs(coords.lat).toFixed(2)}°
-                            </span>
+              </span>
                         </div>
                         <div className="readout__coord">
                             <span className="readout__coord-label">LON</span>
                             <span className="readout__coord-value">
-                                {coords.lon >= 0 ? '+' : '−'}
+                {coords.lon >= 0 ? '+' : '−'}
                                 {Math.abs(coords.lon).toFixed(2)}°
-                            </span>
+              </span>
                         </div>
                         <div className="readout__coord">
                             <span className="readout__coord-label">ALT</span>
                             <span className="readout__coord-value">
-                                {coords.alt.toFixed(1)} Mm
-                            </span>
+                {coords.alt.toFixed(1)} Mm
+              </span>
                         </div>
                         <div className="readout__coord">
                             <span className="readout__coord-label">VEL</span>
                             <span className="readout__coord-value">
-                                {coords.vel.toFixed(2)} km/s
-                            </span>
+                {coords.vel.toFixed(2)} km/s
+              </span>
                         </div>
                     </div>
 
@@ -481,15 +484,15 @@ export function PlanetReadout() {
                                 className="readout__travel-btn"
                                 onClick={() => systemStore.setWarping(info.route!)}
                             >
-      <span className="readout__travel-icon" aria-hidden="true">
-        <span className="readout__travel-icon-inner" />
-      </span>
+                <span className="readout__travel-icon" aria-hidden="true">
+                  <span className="readout__travel-icon-inner" />
+                </span>
                                 <span className="readout__travel-text">
-        <span className="readout__travel-eyebrow">Saltar a destino</span>
-        <span className="readout__travel-label">
-          {info.routeLabel ?? info.route}
-        </span>
-      </span>
+                  <span className="readout__travel-eyebrow">Saltar a destino</span>
+                  <span className="readout__travel-label">
+                    {info.routeLabel ?? info.route}
+                  </span>
+                </span>
                                 <span className="readout__travel-route">{info.route}</span>
                                 <span className="readout__travel-arrow" aria-hidden="true">→</span>
                             </button>
@@ -498,12 +501,12 @@ export function PlanetReadout() {
 
                     {/* ============ FOOTER ============ */}
                     <footer className="readout__foot">
-                        <span className="readout__foot-hint">
-                            <kbd>ESC</kbd> para desconectar señal
-                        </span>
+            <span className="readout__foot-hint">
+              <kbd>ESC</kbd> para desconectar señal
+            </span>
                         <span className="readout__foot-code">
-                            // {info.index} — READY // SIG {`{`}LOCKED{`}`}
-                        </span>
+              // {info.index} — READY // SIG {`{`}LOCKED{`}`}
+            </span>
                     </footer>
                 </aside>
             </div>

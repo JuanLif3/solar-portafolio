@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react'
-import './WarpOverlay.css'
+import '../styles/WarpOverlay.css'
 
 export interface WarpOverlayProps {
     duration?: number
