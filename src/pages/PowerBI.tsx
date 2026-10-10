@@ -59,6 +59,26 @@ const FINDINGS = [
         title: 'Olas de calor en ascenso',
         body: 'La proyección ML predice que los días con olas de calor se estabilizarán en ~10 al año, mientras las hectáreas quemadas seguirán subiendo hacia 4.800 en 2023. La amenaza climática ya no es un evento aislado, es un régimen permanente.',
     },
+    {
+        n: '06',
+        title: 'Concentración provincial del empleo',
+        body: 'Chimbarongo (12.000+) y San Fernando (14.000+) concentran la masa laboral agrícola provincial. Un shock en cualquiera de ellas arrastra las métricas de empleo de toda la provincia, no solo de la comuna afectada.',
+    },
+    {
+        n: '07',
+        title: 'Multirriesgo acumulativo',
+        body: 'Los datos confirman que no son amenazas aisladas: las olas de calor deshidratan la cobertura vegetal y multiplican exponencialmente la vulnerabilidad frente a incendios. El estrés térmico actúa como disparador del "combustible seco" que propaga fuegos de alta intensidad.',
+    },
+    {
+        n: '08',
+        title: 'Colapso sectorial en cereales y apicultura',
+        body: 'La sequía estructural de 2019 y las olas de calor redujeron la floración disponible para las abejas y deshidrataron los cultivos extensivos. El empleo cayó 40% en cereales y 35% en apicultura — el efecto dominó llegó hasta el tejido empresarial PYME de Chépica.',
+    },
+    {
+        n: '09',
+        title: 'Fuego afectó ecosistemas, no cultivos',
+        body: 'Hallazgo contraintuitivo: pese a los 5.300 ha quemadas, el fuego impactó mayormente vegetación nativa y matorrales (99% en Chimbarongo), NO cultivos productivos. El daño a las PYMEs fue indirecto — estrés ambiental, pérdida de polinizadores y cortes de servicios — no destrucción directa de frutales.',
+    },
 ]
 
 /* ============================================================
