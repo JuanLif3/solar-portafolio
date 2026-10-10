@@ -268,28 +268,28 @@
 }
 
 /* ============================================================
- *  GALERÍA DE CAPTURAS
+ *  GALERÍA DE CAPTURAS — COLLAGE
  * ============================================================ */
 .pb__visuals {
     position: relative;
     z-index: 3;
     max-width: 100rem;
-    margin: 0 auto clamp(4rem, 7vw, 5.5rem);
+    margin: 0 auto clamp(3rem, 6vw, 4rem);
 }
 
 .pb__visuals-grid {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 1.25rem;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
 }
 
 .pb-visual {
     position: relative;
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
-    padding: 1.25rem 1.25rem 1.35rem;
-    border-radius: 1rem;
+    gap: 0.55rem;
+    padding: 0.9rem 0.9rem 0.95rem;
+    border-radius: 0.75rem;
     background: linear-gradient(
             180deg,
             rgba(232, 236, 248, 0.05) 0%,
@@ -300,12 +300,10 @@
     -webkit-backdrop-filter: blur(10px);
     cursor: pointer;
     transition:
-            transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
-            border-color 0.35s ease,
-            box-shadow 0.35s ease;
+            transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+            border-color 0.3s ease,
+            box-shadow 0.3s ease;
 }
-
-.pb-visual--wide { grid-column: 1 / -1; }
 
 .pb-visual:hover,
 .pb-visual:focus-visible {
@@ -313,53 +311,56 @@
     transform: translateY(-3px);
     border-color: rgba(255, 217, 122, 0.4);
     box-shadow:
-            0 20px 60px -20px rgba(255, 217, 122, 0.3),
+            0 16px 45px -18px rgba(255, 217, 122, 0.35),
             0 0 0 1px rgba(255, 217, 122, 0.15) inset;
 }
 
 .pb-visual__bracket {
     position: absolute;
-    width: 10px;
-    height: 10px;
+    width: 8px;
+    height: 8px;
     border: 1px solid rgba(255, 217, 122, 0.4);
     pointer-events: none;
-    transition: border-color 0.35s;
+    transition: border-color 0.3s;
 }
-.pb-visual__bracket--tl { top: 6px; left: 6px; border-right: none; border-bottom: none; }
-.pb-visual__bracket--tr { top: 6px; right: 6px; border-left: none; border-bottom: none; }
-.pb-visual__bracket--bl { bottom: 6px; left: 6px; border-right: none; border-top: none; }
-.pb-visual__bracket--br { bottom: 6px; right: 6px; border-left: none; border-top: none; }
+.pb-visual__bracket--tl { top: 5px; left: 5px; border-right: none; border-bottom: none; }
+.pb-visual__bracket--tr { top: 5px; right: 5px; border-left: none; border-bottom: none; }
+.pb-visual__bracket--bl { bottom: 5px; left: 5px; border-right: none; border-top: none; }
+.pb-visual__bracket--br { bottom: 5px; right: 5px; border-left: none; border-top: none; }
 .pb-visual:hover .pb-visual__bracket { border-color: #ffd97a; }
 
 .pb-visual__head {
     display: flex;
     align-items: baseline;
-    gap: 0.85rem;
+    gap: 0.5rem;
 }
 
 .pb-visual__n {
     font-family: 'SFMono-Regular', ui-monospace, monospace;
-    font-size: 0.72rem;
+    font-size: 0.62rem;
     font-weight: 700;
-    letter-spacing: 0.24em;
+    letter-spacing: 0.22em;
     color: #ffd97a;
-    text-shadow: 0 0 8px rgba(255, 217, 122, 0.5);
+    text-shadow: 0 0 6px rgba(255, 217, 122, 0.5);
     flex: 0 0 auto;
 }
 
 .pb-visual__subtitle {
     font-family: var(--font-display);
-    font-size: 0.62rem;
-    letter-spacing: 0.24em;
+    font-size: 0.55rem;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: rgba(232, 216, 168, 0.55);
+    color: rgba(232, 216, 168, 0.5);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .pb-visual__img-wrap {
     position: relative;
     width: 100%;
     aspect-ratio: 16 / 10;
-    border-radius: 0.6rem;
+    border-radius: 0.5rem;
     overflow: hidden;
     background: #0a1020;
     border: 1px solid rgba(232, 236, 248, 0.08);
@@ -370,21 +371,21 @@
     height: 100%;
     object-fit: cover;
     display: block;
-    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .pb-visual:hover .pb-visual__img {
-    transform: scale(1.03);
+    transform: scale(1.04);
 }
 
 .pb-visual__zoom {
     position: absolute;
-    top: 0.6rem;
-    right: 0.6rem;
+    top: 0.4rem;
+    right: 0.4rem;
     display: grid;
     place-items: center;
-    width: 2rem;
-    height: 2rem;
+    width: 1.6rem;
+    height: 1.6rem;
     border-radius: 999px;
     background: rgba(8, 12, 24, 0.75);
     border: 1px solid rgba(255, 217, 122, 0.35);
@@ -405,7 +406,7 @@
 .pb-visual__title {
     margin: 0;
     font-family: var(--font-display);
-    font-size: 1.15rem;
+    font-size: 0.95rem;
     font-weight: 600;
     line-height: 1.2;
     letter-spacing: -0.01em;
@@ -414,35 +415,38 @@
 
 .pb-visual__desc {
     margin: 0;
-    font-size: 0.86rem;
-    line-height: 1.65;
+    font-size: 0.76rem;
+    line-height: 1.55;
     color: #a7b0c6;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
 .pb-visual__insight {
     display: flex;
-    gap: 0.55rem;
+    gap: 0.45rem;
     align-items: flex-start;
-    margin-top: 0.3rem;
-    padding: 0.7rem 0.9rem;
-    border-radius: 0.55rem;
+    margin-top: 0.15rem;
+    padding: 0.55rem 0.7rem;
+    border-radius: 0.45rem;
     background: rgba(255, 217, 122, 0.05);
     border-left: 2px solid #ffd97a;
-    font-size: 0.82rem;
-    line-height: 1.6;
+    font-size: 0.72rem;
+    line-height: 1.55;
     color: #e0d5b0;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
 .pb-visual__insight-mark {
     color: #ffd97a;
     flex: 0 0 auto;
-    font-size: 0.8rem;
+    font-size: 0.7rem;
     padding-top: 0.1rem;
-}
-
-@media (max-width: 800px) {
-    .pb__visuals-grid { grid-template-columns: 1fr; }
-    .pb-visual--wide { grid-column: auto; }
 }
 
 /* ============================================================
@@ -823,20 +827,112 @@
 }
 
 /* ============================================================
+ *  BLOQUES TEMÁTICOS
+ * ============================================================ */
+.pb-block {
+    position: relative;
+    z-index: 3;
+    max-width: 100rem;
+    margin: 0 auto clamp(3rem, 6vw, 4.5rem);
+}
+
+.pb-block:last-child {
+    margin-bottom: 0;
+}
+
+.pb-block__grid {
+    display: grid;
+    gap: 1rem;
+}
+
+/* ---------- Bloque A: hero + 2 tall side-by-side ---------- */
+.pb-block__grid--A {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-auto-rows: auto;
+}
+
+.pb-block__grid--A .pb-visual--wide {
+    grid-column: 1 / -1;
+}
+
+/* ---------- Bloque B: 3 columnas ---------- */
+.pb-block__grid--B {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+/* ---------- Bloque C: stack vertical full-width ---------- */
+.pb-block__grid--C {
+    grid-template-columns: 1fr;
+    gap: 1.15rem;
+}
+
+/* ============================================================
+ *  AJUSTE DE IMÁGENES POR TIPO
+ * ============================================================ */
+
+/* Wide: panorámica, aspect 2:1 */
+.pb-visual--wide .pb-visual__img-wrap {
+    aspect-ratio: 2 / 1;
+}
+
+/* Tall: cuadrada o vertical, aspect 0.85:1 */
+.pb-visual--tall .pb-visual__img-wrap {
+    aspect-ratio: 0.85 / 1;
+}
+
+/* Full: tira horizontal, aspect 3.5:1 */
+.pb-visual--full .pb-visual__img-wrap {
+    aspect-ratio: 3.5 / 1;
+}
+
+.pb-visual--full {
+    padding: 1rem 1.1rem 1.05rem;
+}
+
+.pb-visual--full .pb-visual__img {
+    object-fit: contain;
+    background: #f8f9fb;
+}
+
+/* ---------- Responsive de bloques ---------- */
+@media (max-width: 1100px) {
+    .pb-block__grid--B {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 800px) {
+    .pb-block__grid--A,
+    .pb-block__grid--B {
+        grid-template-columns: 1fr;
+    }
+
+    .pb-visual--wide .pb-visual__img-wrap,
+    .pb-visual--tall .pb-visual__img-wrap {
+        aspect-ratio: 16 / 10;
+    }
+
+    .pb-visual--full .pb-visual__img-wrap {
+        aspect-ratio: 2 / 1;
+    }
+}
+
+/* ============================================================
  *  RESPONSIVE
  * ============================================================ */
 @media (max-width: 1100px) {
     .pb__hero { grid-template-columns: 1fr; gap: 2rem; }
+    .pb__visuals-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
 @media (max-width: 900px) {
-    .pb__visuals-grid { grid-template-columns: 1fr; }
     .pb__kpis { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (max-width: 700px) {
     .pb__kpis { grid-template-columns: 1fr; }
     .pb__meta { grid-template-columns: 1fr 1fr; }
+    .pb__visuals-grid { grid-template-columns: 1fr; }
     .pb__finding {
         grid-template-columns: 1fr;
         gap: 0.5rem;

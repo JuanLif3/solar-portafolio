@@ -14,6 +14,8 @@ const PBIX_FILENAME = 'Proyecto_Colchagua.pbix'
 /* ============================================================
  *  GALERÍA DE CAPTURAS DEL DASHBOARD
  * ============================================================ */
+type BlockLayout = 'A' | 'B' | 'C'
+
 type Visual = {
     id: string
     n: string
@@ -22,69 +24,154 @@ type Visual = {
     description: string
     insight: string
     image: string
-    wide?: boolean
+    layout: BlockLayout
+    /** Clases de tamaño dentro del grid */
+    span?: 'wide' | 'tall' | 'full' | 'normal'
 }
 
+const BLOCKS: { id: BlockLayout; index: string; title: string; subtitle: string }[] = [
+    {
+        id: 'A',
+        index: '01',
+        title: 'Contexto y concentración del riesgo',
+        subtitle: 'Dónde se acumula el empleo agrícola y cómo se distribuye el daño',
+    },
+    {
+        id: 'B',
+        index: '02',
+        title: 'Efecto dominó territorial',
+        subtitle: 'Incendios, vegetación nativa y su impacto sobre las ventas',
+    },
+    {
+        id: 'C',
+        index: '03',
+        title: 'Efecto dominó sectorial',
+        subtitle: 'Colapso de cereales y apicultura bajo estrés climático',
+    },
+]
+
 const VISUALS: Visual[] = [
+    /* ---------- BLOQUE A ---------- */
     {
-        id: 'ranking-amenazas',
-        n: '01',
-        title: 'Ranking y perfil de amenazas',
-        subtitle: 'Tabla · Scatter · Evolución temporal',
+        id: 'amenaza-impacto',
+        n: 'A1',
+        title: 'Amenaza vs Impacto',
+        subtitle: 'Scatter · Hectáreas quemadas vs crecimiento de ventas',
         description:
-            'Vista principal del dashboard. Combina el ranking de comunas según vulnerabilidad, el cruce de amenaza vs impacto por comuna, y la evolución anual de precipitación contra las ventas del sector agropecuario.',
+            'Cruce de hectáreas quemadas por incendios (eje X) contra crecimiento de ventas agro (eje Y). Cada burbuja es una comuna; el tamaño representa la concentración de cultivos. Las burbujas azul claro son comunas críticas (alta fruticultura + alta siniestralidad).',
         insight:
-            'Solo Chimbarongo y San Fernando califican como comunas críticas (alta fruticultura + alta siniestralidad). El resto mantiene perfil estándar.',
-        image: '/powerbi/01-ranking-amenazas.png',
-        wide: true,
+            'Chimbarongo y San Fernando se aíslan como outliers. El resto de las comunas se agrupa en el cuadrante bajo-impacto — la vulnerabilidad no se distribuye parejo.',
+        image: '/powerbi/amenaza-impacto.png',
+        layout: 'A',
+        span: 'wide',
     },
     {
-        id: 'contexto',
-        n: '02',
-        title: 'Contexto del sector agro',
-        subtitle: 'KPIs · Riego · Especies frutícolas',
+        id: 'ventas-uf-comuna',
+        n: 'A2',
+        title: 'Ventas Totales UF por comuna',
+        subtitle: 'Ranking de volumen económico · 2018-2021',
         description:
-            'Estado inicial del sector agropecuario de Colchagua: ventas totales (80M UF, $3.887M CLP), superficie por método de riego, ranking de las 30+ especies frutícolas cultivadas y mapa geográfico de incendios por comuna.',
+            'Volumen agregado de ventas en UF para cada comuna de la provincia. San Fernando lidera con casi 50 mill. UF, seguido por Santa Cruz y Chimbarongo.',
         insight:
-            'El 76% de la superficie se riega por goteo — el resto usa métodos más vulnerables. El cerezo lidera el cultivo con más de 10.000 unidades, siendo la especie más sensible a heladas.',
-        image: '/powerbi/02-contexto.png',
-        wide: true,
+            'El 60% del volumen provincial se concentra en 3 comunas (San Fernando, Santa Cruz, Chimbarongo). Un shock en cualquiera de ellas mueve la aguja provincial completa.',
+        image: '/powerbi/ventas-uf-comuna.png',
+        layout: 'A',
+        span: 'tall',
     },
     {
-        id: 'proyeccion-ml',
-        n: '03',
-        title: 'Proyección ML · 2022-2023',
-        subtitle: 'Forecast · Modelo predictivo · Series temporales',
+        id: 'empresas-trabajadores',
+        n: 'A3',
+        title: 'Empresas y trabajadores por año',
+        subtitle: 'Doble eje · 2018-2021',
         description:
-            'Las cuatro proyecciones construidas con machine learning (Prophet + scikit-learn). Cada gráfico muestra la serie histórica 2018-2021 en línea continua y la proyección 2022-2023 en línea punteada, con intervalos de confianza.',
+            'Evolución anual del número de empresas formales (azul oscuro, eje derecho) frente al número de trabajadores dependientes (azul claro, eje izquierdo). Las dos series divergen a partir de 2020.',
         insight:
-            'El modelo predice que las hectáreas quemadas seguirán subiendo hacia 4.800 en 2023. Los días con olas de calor se estabilizarán en ~10 al año. La amenaza climática se consolida como régimen permanente, no como evento aislado.',
-        image: '/powerbi/03-proyeccion-ml.png',
-        wide: true,
+            'Las empresas crecieron (+8%) mientras los trabajadores cayeron (-4.000 en 2021). Las PYMEs sobrevivieron a costa de reducir personal — el shock climático y la pandemia golpearon al empleo, no a la estructura empresarial.',
+        image: '/powerbi/empresas-trabajadores.png',
+        layout: 'A',
+        span: 'tall',
+    },
+
+    /* ---------- BLOQUE B ---------- */
+    {
+        id: 'hectareas-ventas',
+        n: 'B1',
+        title: 'Hectáreas quemadas vs Ventas Agro',
+        subtitle: 'Barras + línea · 2018-2021',
+        description:
+            'Combinación de hectáreas quemadas por incendios (barras azules) contra ventas agro (línea azul oscura, eje derecho). Revela la desconexión entre el crecimiento económico sostenido y la aceleración del daño territorial.',
+        insight:
+            'Las hectáreas quemadas crecieron 17× entre 2018 y 2021 (200 → 3.500 ha) mientras las ventas solo crecían 1,5×. El daño escala mucho más rápido que el beneficio.',
+        image: '/powerbi/hectareas-ventas.png',
+        layout: 'B',
+        span: 'tall',
     },
     {
-        id: 'heladas',
-        n: '04',
-        title: 'Mapa de calor · Heladas por comuna',
-        subtitle: 'Análisis espacio-temporal · 2018-2021',
+        id: 'vegetacion-plantaciones',
+        n: 'B2',
+        title: 'Vegetación, Plantaciones y Ha_Agricolas',
+        subtitle: 'Composición del suelo afectado · 100% apilado',
         description:
-            'Heatmap que cruza comunas (eje Y) contra años (eje X), coloreando cada celda según la severidad de las heladas registradas. Los tonos más intensos marcan los eventos climáticos más severos.',
+            'Descomposición porcentual de la superficie quemada por comuna, distinguiendo vegetación natural (celeste), plantaciones forestales (azul oscuro) y superficie agrícola productiva (naranja).',
         insight:
-            'Chimbarongo (13 días), Nancagua (12), Pumanque (11) y San Fernando (11) superan sistemáticamente el promedio regional. La amenaza tiene geografía propia: no se distribuye parejo.',
-        image: '/powerbi/04-heladas.png',
-        wide: true,
+            'El fuego afectó mayormente vegetación nativa y matorrales — NO cultivos productivos. El daño a las PYMEs fue indirecto: estrés ambiental, pérdida de polinizadores y cortes de servicios, no pérdida directa de frutales.',
+        image: '/powerbi/vegetacion-plantaciones.png',
+        layout: 'B',
+        span: 'tall',
     },
     {
-        id: 'volatilidad',
-        n: '05',
-        title: 'Volatilidad laboral agrícola',
-        subtitle: 'Boxplot por comuna · Distribución de trabajadores',
+        id: 'precipitacion-ventas',
+        n: 'B3',
+        title: 'Precipitación Anual mm vs Ventas Agro',
+        subtitle: 'Barras + línea · Efecto sequía',
         description:
-            'Diagrama de caja que muestra la dispersión de la cantidad de trabajadores agrícolas por comuna entre 2018-2021. Los bigotes indican el rango completo, la caja el 25-75% y la línea central la mediana.',
+            'Precipitación anual acumulada (barras) contra las ventas agro del período (línea). Permite leer el efecto de la sequía estructural de 2019 sobre el desempeño económico.',
         insight:
-            'San Fernando concentra los valores más altos pero también la mayor dispersión — la volatilidad laboral es un factor de vulnerabilidad tan relevante como el clima.',
-        image: '/powerbi/05-volatilidad.png',
-        wide: true,
+            'La caída de precipitación en 2019 coincidió con el peor año de empleo agrícola (2020-2021). El déficit hídrico actúa como disparador retardado: el impacto económico se ve 1-2 años después del evento climático.',
+        image: '/powerbi/precipitacion-ventas.png',
+        layout: 'B',
+        span: 'tall',
+    },
+
+    /* ---------- BLOQUE C ---------- */
+    {
+        id: 'empresas-cereales-apicultura',
+        n: 'C1',
+        title: 'Empresas · Cereales vs Apicultura',
+        subtitle: 'Número de empresas formales · 2018-2021',
+        description:
+            'Cantidad de empresas formales dedicadas al cultivo de cereales (trigo y maíz) vs las dedicadas a la apicultura. Ambas series muestran la contracción del sector tras el shock climático compuesto de 2019.',
+        insight:
+            'La apicultura mostró recuperación post-2020 (nueva formalización), mientras los cereales siguieron cayendo. La sequía golpeó más fuerte a los cultivos extensivos.',
+        image: '/powerbi/empresas-cereales-apicultura.png',
+        layout: 'C',
+        span: 'full',
+    },
+    {
+        id: 'ventas-cereales-apicultura',
+        n: 'C2',
+        title: 'Ventas · Cereales vs Apicultura',
+        subtitle: 'Ventas anuales · 2018-2021',
+        description:
+            'Volumen de ventas de cereales (trigo + maíz) contra apicultura. Ambas series cayeron con fuerza durante 2019-2020 y solo la apicultura mostró un rebote claro en 2021.',
+        insight:
+            'La caída conjunta de ventas en 2020 confirma el efecto dominó: la sequía de 2019 y las olas de calor deshidrataron cultivos y redujeron la floración disponible para las abejas, golpeando ambos rubros simultáneamente.',
+        image: '/powerbi/ventas-cereales-apicultura.png',
+        layout: 'C',
+        span: 'full',
+    },
+    {
+        id: 'trabajadores-cereales-apicultura',
+        n: 'C3',
+        title: 'Trabajadores · Cereales vs Apicultura',
+        subtitle: 'Empleo formal del sector · 2018-2021',
+        description:
+            'Cantidad de trabajadores dependientes en cereales y apicultura. Ambas series tocaron su mínimo histórico en 2020 y comenzaron a recuperarse en 2021, sin volver aún a los niveles de 2018.',
+        insight:
+            'El empleo cayó 40% en cereales y 35% en apicultura durante el período. Es la prueba más dura del efecto dominó sectorial: el shock climático destruyó puestos de trabajo formales que tomarán años recuperar.',
+        image: '/powerbi/trabajadores-cereales-apicultura.png',
+        layout: 'C',
+        span: 'full',
     },
 ]
 
@@ -253,50 +340,52 @@ export function PowerBI() {
 
             {/* ============ GALERÍA DE CAPTURAS ============ */}
             <section className="pb__visuals">
-                <header className="pb__section-head">
-                    <span className="pb__section-index">01</span>
-                    <div>
-                        <h2 className="pb__section-title">Vistas del dashboard</h2>
-                        <p className="pb__section-desc">
-                            Cinco capturas del reporte en Power BI Desktop.
-                            Haz clic en cualquiera para verla en tamaño completo.
-                        </p>
-                    </div>
-                </header>
+                {BLOCKS.map((block) => {
+                    const blockVisuals = VISUALS.filter((v) => v.layout === block.id)
 
-                <div className="pb__visuals-grid">
-                    {VISUALS.map((v) => (
-                        <article
-                            key={v.id}
-                            className={`pb-visual ${v.wide ? 'pb-visual--wide' : ''}`}
-                            onClick={() => setOpenImage(v)}
-                            role="button"
-                            tabIndex={0}
-                            onKeyDown={(e) => {
-                                if (e.key === 'Enter' || e.key === ' ') {
-                                    e.preventDefault()
-                                    setOpenImage(v)
-                                }
-                            }}
-                        >
-                            <span className="pb-visual__bracket pb-visual__bracket--tl" />
-                            <span className="pb-visual__bracket pb-visual__bracket--tr" />
-                            <span className="pb-visual__bracket pb-visual__bracket--bl" />
-                            <span className="pb-visual__bracket pb-visual__bracket--br" />
-
-                            <header className="pb-visual__head">
-                                <span className="pb-visual__n">{v.n}</span>
-                                <span className="pb-visual__subtitle">{v.subtitle}</span>
+                    return (
+                        <div key={block.id} className={`pb-block pb-block--${block.id}`}>
+                            <header className="pb__section-head">
+                                <span className="pb__section-index">{block.index}</span>
+                                <div>
+                                    <h2 className="pb__section-title">{block.title}</h2>
+                                    <p className="pb__section-desc">{block.subtitle}</p>
+                                </div>
                             </header>
 
-                            <div className="pb-visual__img-wrap">
-                                <img
-                                    src={v.image}
-                                    alt={v.title}
-                                    loading="lazy"
-                                    className="pb-visual__img"
-                                />
-                                <span className="pb-visual__zoom" aria-hidden="true">
+                            <div className={`pb-block__grid pb-block__grid--${block.id}`}>
+                                {blockVisuals.map((v) => (
+                                    <article
+                                        key={v.id}
+                                        className={`pb-visual pb-visual--${v.span ?? 'normal'}`}
+                                        onClick={() => setOpenImage(v)}
+                                        role="button"
+                                        tabIndex={0}
+                                        onKeyDown={(e) => {
+                                            if (e.key === 'Enter' || e.key === ' ') {
+                                                e.preventDefault()
+                                                setOpenImage(v)
+                                            }
+                                        }}
+                                    >
+                                        <span className="pb-visual__bracket pb-visual__bracket--tl" />
+                                        <span className="pb-visual__bracket pb-visual__bracket--tr" />
+                                        <span className="pb-visual__bracket pb-visual__bracket--bl" />
+                                        <span className="pb-visual__bracket pb-visual__bracket--br" />
+
+                                        <header className="pb-visual__head">
+                                            <span className="pb-visual__n">{v.n}</span>
+                                            <span className="pb-visual__subtitle">{v.subtitle}</span>
+                                        </header>
+
+                                        <div className="pb-visual__img-wrap">
+                                            <img
+                                                src={v.image}
+                                                alt={v.title}
+                                                loading="lazy"
+                                                className="pb-visual__img"
+                                            />
+                                            <span className="pb-visual__zoom" aria-hidden="true">
                                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
                                          stroke="currentColor" strokeWidth="2" strokeLinecap="round">
                                         <circle cx="11" cy="11" r="8" />
@@ -305,18 +394,21 @@ export function PowerBI() {
                                         <line x1="8" y1="11" x2="14" y2="11" />
                                     </svg>
                                 </span>
-                            </div>
+                                        </div>
 
-                            <h3 className="pb-visual__title">{v.title}</h3>
-                            <p className="pb-visual__desc">{v.description}</p>
+                                        <h3 className="pb-visual__title">{v.title}</h3>
+                                        <p className="pb-visual__desc">{v.description}</p>
 
-                            <div className="pb-visual__insight">
-                                <span className="pb-visual__insight-mark">▸</span>
-                                <span>{v.insight}</span>
+                                        <div className="pb-visual__insight">
+                                            <span className="pb-visual__insight-mark">▸</span>
+                                            <span>{v.insight}</span>
+                                        </div>
+                                    </article>
+                                ))}
                             </div>
-                        </article>
-                    ))}
-                </div>
+                        </div>
+                    )
+                })}
             </section>
 
             {/* ============ CONCLUSIONES ============ */}
