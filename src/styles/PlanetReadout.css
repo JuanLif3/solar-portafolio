@@ -1439,3 +1439,65 @@
         font-size: 0.6rem;
     }
 }
+
+/* ============================================================
+ *  PERFORMANCE MOBILE
+ *  Apaga las animaciones más costosas en pantallas chicas.
+ * ============================================================ */
+@media (max-width: 900px) {
+    /* El flicker y el beam son los que más CPU consumen */
+    .readout__crt-flicker,
+    .readout__crt-beam,
+    .readout__scanline-sweep {
+        display: none;
+    }
+
+    /* Reducir la opacidad de scanlines para que no sature */
+    .readout__crt-scanlines {
+        opacity: 0.5;
+    }
+
+    /* Retícula y esquinas: sin pulso */
+    .readout__reticle-corner,
+    .readout__corner {
+        animation: none;
+        opacity: 0.85;
+    }
+
+    /* Border pulse afuera */
+    .readout__border-pulse {
+        display: none;
+    }
+
+    /* Travel icon sin pulsación continua */
+    .readout__travel-icon-inner {
+        animation: none;
+    }
+    .readout__travel-icon::before {
+        animation-duration: 15s;
+    }
+
+    /* Wave sin animación (ya está oculta en mobile, pero por si acaso) */
+    .readout__wave-bar {
+        animation: none;
+        opacity: 0.6;
+    }
+}
+
+/* Respetar usuarios con "reducir movimiento" en el SO */
+@media (prefers-reduced-motion: reduce) {
+    .readout__crt-flicker,
+    .readout__crt-beam,
+    .readout__scanline-sweep,
+    .readout__border-pulse {
+        display: none;
+    }
+
+    .readout__reticle-corner,
+    .readout__corner,
+    .readout__signal-dot,
+    .readout__radar-blip,
+    .readout__travel-icon-inner {
+        animation: none;
+    }
+}

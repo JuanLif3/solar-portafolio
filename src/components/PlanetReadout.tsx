@@ -181,30 +181,54 @@ function useTypewriter(text: string, speed = 12, delay = 320) {
 /* ============================================================
  *  COORDENADAS EN VIVO
  * ============================================================ */
-function useLiveCoords(active: string | null) {
-    const [coords, setCoords] = useState({ lat: 0, lon: 0, alt: 0, vel: 0 })
+function useLiveCoords(
+    active: string | null,
+    latRef: React.RefObject<HTMLSpanElement | null>,
+    lonRef: React.RefObject<HTMLSpanElement | null>,
+    altRef: React.RefObject<HTMLSpanElement | null>,
+    velRef: React.RefObject<HTMLSpanElement | null>,
+) {
     const seedRef = useRef(Math.random() * 1000)
 
     useEffect(() => {
         if (!active) return
         seedRef.current = Math.random() * 1000
 
+        const isMobile = window.innerWidth < 900
+        const interval = isMobile ? 200 : 60 // 5 fps mobile, ~16 fps desktop
+
+        let last = 0
         let raf = 0
-        const tick = () => {
-            const t = performance.now() / 1000 + seedRef.current
-            setCoords({
-                lat: Math.sin(t * 0.4) * 62.4,
-                lon: Math.cos(t * 0.3) * 118.7,
-                alt: 128.4 + Math.sin(t * 0.6) * 24,
-                vel: 4.2 + Math.sin(t * 0.9) * 0.8,
-            })
+
+        const tick = (now: number) => {
+            if (now - last > interval) {
+                last = now
+                const t = performance.now() / 1000 + seedRef.current
+                const lat = Math.sin(t * 0.4) * 62.4
+                const lon = Math.cos(t * 0.3) * 118.7
+                const alt = 128.4 + Math.sin(t * 0.6) * 24
+                const vel = 4.2 + Math.sin(t * 0.9) * 0.8
+
+                if (latRef.current) {
+                    latRef.current.textContent =
+                        `${lat >= 0 ? '+' : '−'}${Math.abs(lat).toFixed(2)}°`
+                }
+                if (lonRef.current) {
+                    lonRef.current.textContent =
+                        `${lon >= 0 ? '+' : '−'}${Math.abs(lon).toFixed(2)}°`
+                }
+                if (altRef.current) {
+                    altRef.current.textContent = `${alt.toFixed(1)} Mm`
+                }
+                if (velRef.current) {
+                    velRef.current.textContent = `${vel.toFixed(2)} km/s`
+                }
+            }
             raf = requestAnimationFrame(tick)
         }
         raf = requestAnimationFrame(tick)
         return () => cancelAnimationFrame(raf)
-    }, [active])
-
-    return coords
+    }, [active, latRef, lonRef, altRef, velRef])
 }
 
 /* ============================================================
@@ -219,7 +243,11 @@ export function PlanetReadout() {
     const [isClosing, setIsClosing] = useState(false)
     const [decodeProgress, setDecodeProgress] = useState(0)
 
-    const coords = useLiveCoords(focusedPlanet)
+    const latRef = useRef<HTMLSpanElement>(null)
+    const lonRef = useRef<HTMLSpanElement>(null)
+    const altRef = useRef<HTMLSpanElement>(null)
+    const velRef = useRef<HTMLSpanElement>(null)
+    useLiveCoords(focusedPlanet, latRef, lonRef, altRef, velRef)
 
     /* ---------- Close con animación CRT off ---------- */
     const handleClose = () => {
@@ -433,29 +461,19 @@ export function PlanetReadout() {
                     <div className="readout__coords">
                         <div className="readout__coord">
                             <span className="readout__coord-label">LAT</span>
-                            <span className="readout__coord-value">
-                {coords.lat >= 0 ? '+' : '−'}
-                                {Math.abs(coords.lat).toFixed(2)}°
-              </span>
+                            <span className="readout__coord-value" ref={latRef}>+00.00°</span>
                         </div>
                         <div className="readout__coord">
                             <span className="readout__coord-label">LON</span>
-                            <span className="readout__coord-value">
-                {coords.lon >= 0 ? '+' : '−'}
-                                {Math.abs(coords.lon).toFixed(2)}°
-              </span>
+                            <span className="readout__coord-value" ref={lonRef}>+00.00°</span>
                         </div>
                         <div className="readout__coord">
                             <span className="readout__coord-label">ALT</span>
-                            <span className="readout__coord-value">
-                {coords.alt.toFixed(1)} Mm
-              </span>
+                            <span className="readout__coord-value" ref={altRef}>0.0 Mm</span>
                         </div>
                         <div className="readout__coord">
                             <span className="readout__coord-label">VEL</span>
-                            <span className="readout__coord-value">
-                {coords.vel.toFixed(2)} km/s
-              </span>
+                            <span className="readout__coord-value" ref={velRef}>0.00 km/s</span>
                         </div>
                     </div>
 
