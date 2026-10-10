@@ -11,12 +11,14 @@ export type SectionId =
     | 'contacto'
 
 export type SystemState = {
-    speed: number          // 0.1 – 3.0
+    speed: number
     paused: boolean
     showLabels: boolean
     showOrbits: boolean
     activeSection: SectionId | null
     focusedPlanet: string | null
+    warping: boolean
+    warpTarget: string | null
 }
 
 let state: SystemState = {
@@ -44,6 +46,11 @@ export const systemStore = {
 
     setFocusedPlanet: (name: string | null) => {
         state = { ...state, focusedPlanet: name }
+        emit()
+    },
+
+    setWarping: (route: string | null) => {
+        state = { ...state, warping: route !== null, warpTarget: route }
         emit()
     },
 
