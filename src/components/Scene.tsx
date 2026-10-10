@@ -7,6 +7,7 @@ import { Planet, type PlanetConfig } from './Planet'
 import { Starfield } from './Starfield'
 import { AsteroidBelt } from './AsteroidBelt'
 import { systemStore, useSystemState } from '../store/system'
+import { CameraFollow } from './CameraFollow'
 
 const PLANETS: PlanetConfig[] = [
     { name: 'Mercurio', kind: 'mercury', distance: 3.4,  size: 0.16, speed: 1.55, label: '01 · Inicio' },
@@ -57,6 +58,7 @@ export function Scene() {
 
                 <Starfield />
                 <DriftingSystem />
+                <CameraFollow />
 
                 <OrbitControls
                     makeDefault
