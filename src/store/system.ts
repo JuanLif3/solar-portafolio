@@ -16,6 +16,7 @@ export type SystemState = {
     showLabels: boolean
     showOrbits: boolean
     activeSection: SectionId | null
+    focusedPlanet: string | null
 }
 
 let state: SystemState = {
@@ -37,6 +38,13 @@ export const systemStore = {
     subscribe: (l: () => void) => {
         listeners.add(l)
         return () => listeners.delete(l)
+    },
+
+    focusedPlanet: null,
+
+    setFocusedPlanet: (name: string | null) => {
+        state = { ...state, focusedPlanet: name }
+        emit()
     },
 
     setSpeed: (n: number) =>
