@@ -3,6 +3,7 @@ import { SolarSystem } from './pages/SolarSystem'
 import { PowerBI } from './pages/PowerBI'
 import { Notebooks } from './pages/Notebooks'
 import { WarpPortal } from './components/WarpPortal'
+
 import './App.css'
 
 export function App() {
