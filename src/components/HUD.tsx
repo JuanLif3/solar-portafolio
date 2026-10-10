@@ -5,14 +5,14 @@ import '../styles/HUD.css'
 type Section = { id: SectionId; label: string; href?: string }
 
 const SECTIONS: Section[] = [
-    { id: 'inicio',        label: 'Inicio' },
-    { id: 'sobre-mi',      label: 'Sobre mí' },
-    { id: 'proyectos',     label: 'Proyectos' },
-    { id: 'experiencia',   label: 'Experiencia' },
-    { id: 'stack',         label: 'Stack' },
-    { id: 'certs',         label: 'Certificaciones' },
-    { id: 'blog',          label: 'Blog' },
-    { id: 'contacto',      label: 'Contacto' },
+    { id: 'inicio',      label: 'Inicio' },
+    { id: 'sobre-mi',    label: 'Sobre mí' },
+    { id: 'proyectos',   label: 'Proyectos' },
+    { id: 'experiencia', label: 'Trayectoria' },
+    { id: 'stack',       label: 'Stack' },
+    { id: 'powerbi',     label: 'Power BI' },
+    { id: 'notebooks',   label: 'Notebooks' },
+    { id: 'contacto',    label: 'Contacto' },
 ]
 
 export function HUD() {

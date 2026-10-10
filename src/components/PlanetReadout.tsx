@@ -21,14 +21,14 @@ const SECTION_INFO: Record<string, Info> = {
         title: 'Inicio',
         subtitle: 'El punto de partida',
         description:
-            'Un portafolio interactivo diseñado como un sistema solar en constante movimiento, donde cada planeta representa una parte de mi trabajo. Arrastra para explorar, haz clic en cualquier cuerpo para decodificar su señal.',
+            'Un portafolio interactivo construido como un sistema solar en constante movimiento, donde cada cuerpo representa una parte de mi trabajo. Arrastra para explorar, haz clic en cualquier planeta para decodificar su señal.',
         bullets: ['Portafolio interactivo', 'Diseño 3D en tiempo real', 'Navegación orbital'],
         telemetry: [
-            { label: 'MASA',     value: '3.30 ×10²³ kg' },
-            { label: 'DIÁMETRO', value: '4 879 km' },
-            { label: 'ÓRBITA',   value: '88 días' },
-            { label: 'SEÑAL',    value: '−38 dBm' },
-            { label: 'INCLINACIÓN', value: '7.0°' },
+            { label: 'MASA',          value: '3.30 ×10²³ kg' },
+            { label: 'DIÁMETRO',      value: '4 879 km' },
+            { label: 'ÓRBITA',        value: '88 días' },
+            { label: 'SEÑAL',         value: '−38 dBm' },
+            { label: 'INCLINACIÓN',   value: '7.0°' },
             { label: 'EXCENTRICIDAD', value: '0.206' },
         ],
     },
@@ -37,15 +37,15 @@ const SECTION_INFO: Record<string, Info> = {
         title: 'Sobre mí',
         subtitle: 'Quién está detrás',
         description:
-            'Desarrollador full stack con foco en experiencias web rápidas, accesibles y con atención obsesiva al detalle. Me interesan los productos que se sienten vivos, no solo funcionales.',
-        bullets: ['Full Stack Developer', 'React + TypeScript', 'Node.js + PostgreSQL'],
+            'Desarrollador en formación, enfocado en el ecosistema TypeScript: React, Next.js y NestJS. Técnico en Programación y Análisis de Sistemas, con tres proyectos reales desplegados en producción. Me interesa la ciberseguridad, investigar cada detalle y usar la IA como herramienta, no como muleta.',
+        bullets: ['Técnico en Programación', 'TypeScript · React · Next', 'Aprendiendo ciberseguridad'],
         telemetry: [
-            { label: 'EXPERIENCIA',  value: '+4 años' },
-            { label: 'PROYECTOS',    value: '27 entregados' },
-            { label: 'STACK',        value: '18 tecnologías' },
-            { label: 'IDIOMAS',      value: 'ES · EN · PT' },
-            { label: 'UBICACIÓN',    value: 'Remoto · GMT-5' },
-            { label: 'DISPONIBLE',   value: 'Sí' },
+            { label: 'TÍTULO',      value: 'Téc. Programación' },
+            { label: 'ENFOQUE',     value: 'Full Stack TS' },
+            { label: 'PROYECTOS',   value: '03 desplegados' },
+            { label: 'IDIOMAS',     value: 'ES · EN técnico' },
+            { label: 'UBICACIÓN',   value: 'Chile' },
+            { label: 'DISPONIBLE',  value: 'Sí' },
         ],
     },
     '03 · Proyectos': {
@@ -53,33 +53,33 @@ const SECTION_INFO: Record<string, Info> = {
         title: 'Proyectos',
         subtitle: 'Lo que he construido',
         description:
-            'Una selección de sistemas que he diseñado e implementado de punta a punta: desde dashboards en tiempo real con WebGL hasta pipelines de datos sobre terabytes de información.',
-        bullets: ['Análisis orbital', 'Motor de recomendación', 'Editor colaborativo'],
+            'Tres aplicaciones web reales, desplegadas y funcionales: un gestor de contraseñas con cifrado zero-knowledge, un sistema de finanzas para una junta de vecinos y una app de mensajería en desarrollo. Todo construido con TypeScript, React y Node.js.',
+        bullets: ['Gestor zero-knowledge', 'Finanzas Villa', 'Mensajería Bletchley'],
         telemetry: [
-            { label: 'TOTAL',    value: '27 sistemas' },
-            { label: 'EN LÍNEA', value: '18 activos' },
-            { label: 'EN CURSO', value: '5 desarrollo' },
-            { label: 'ARCHIVO',  value: '4 retirados' },
-            { label: 'USUARIOS', value: '+12 000' },
-            { label: 'UPTIME',   value: '99.98%' },
+            { label: 'TOTAL',    value: '03 proyectos' },
+            { label: 'EN LÍNEA', value: '02 activos' },
+            { label: 'EN CURSO', value: '01 desarrollo' },
+            { label: 'STACK',    value: 'React · Node' },
+            { label: 'DEPLOY',   value: 'Vercel' },
+            { label: 'DB',       value: 'PostgreSQL · Neon' },
         ],
         route: '/proyectos',
-        routeLabel: 'Archivo de proyectos',
+        routeLabel: 'Ver proyectos',
     },
     '04 · Experiencia': {
         index: '04',
-        title: 'Experiencia',
-        subtitle: 'Dónde he estado',
+        title: 'Trayectoria',
+        subtitle: 'De dónde vengo',
         description:
-            'Trayectoria profesional construyendo productos digitales junto a equipos de producto, diseño y datos. Desde startups en etapa temprana hasta plataformas de escala empresarial.',
-        bullets: ['Empresas tech', 'Equipos distribuidos', 'Metodologías ágiles'],
+            'Aún sin experiencia formal en el rubro tech, pero con un historial laboral variado que forjó disciplina y trato con personas: jefe de aseo en Mall Vivo, reponedor en Alvi, atención al cliente en Falabella, líder promotor, trabajo en almacén de barrio y aseo general. Cada trabajo enseñó algo distinto sobre responsabilidad, orden y esfuerzo.',
+        bullets: ['Jefe de aseo · Mall Vivo', 'Reponedor · Alvi', 'Retail y atención · Falabella'],
         telemetry: [
-            { label: 'EMPRESAS', value: '6 compañías' },
-            { label: 'AÑOS',     value: '+4 trabajando' },
-            { label: 'PAÍSES',   value: '3 remotos' },
-            { label: 'ROLES',    value: 'Frontend → Full' },
-            { label: 'MENTORÍA', value: '4 devs' },
-            { label: 'CHARLAS',  value: '3 eventos' },
+            { label: 'RUBRO ACTUAL', value: 'Aprendiendo dev' },
+            { label: 'TRABAJOS',     value: '06+ experiencias' },
+            { label: 'SOFT SKILLS',  value: 'Liderazgo · Orden' },
+            { label: 'BUSCO',        value: 'Primer empleo TI' },
+            { label: 'MODALIDAD',    value: 'Remoto · Híbrido' },
+            { label: 'INGLÉS',       value: 'Lectura técnica' },
         ],
     },
     '05 · Stack': {
@@ -87,67 +87,67 @@ const SECTION_INFO: Record<string, Info> = {
         title: 'Stack',
         subtitle: 'Con qué trabajo',
         description:
-            'Las herramientas con las que construyo día a día. Un stack maduro, probado en producción y elegido por razones concretas, no por moda.',
-        bullets: ['React', 'TypeScript', 'Node.js', 'PostgreSQL', 'Docker', 'AWS'],
+            'Mi stack principal gira en torno a TypeScript: React y Next.js en el frontend, NestJS y Node.js en el backend. Uso Vercel para deploy, Neon (PostgreSQL) como base de datos, y sigo profundizando en ciberseguridad por interés personal.',
+        bullets: ['TypeScript', 'React · Next.js', 'NestJS · Node.js', 'PostgreSQL · Neon', 'Vercel', 'Git · GitHub'],
         telemetry: [
-            { label: 'LENGUAJES',  value: 'TS · PY · GO' },
-            { label: 'FRAMEWORKS', value: 'React · Next' },
-            { label: 'DATOS',      value: 'Postgres · Redis' },
-            { label: 'CLOUD',      value: 'AWS · Vercel' },
-            { label: 'CI/CD',      value: 'GH Actions' },
-            { label: 'MONITOREO',  value: 'Sentry · DD' },
+            { label: 'LENGUAJES',  value: 'TS · JS · Java' },
+            { label: 'FRONTEND',   value: 'React · Next' },
+            { label: 'BACKEND',    value: 'NestJS · Node' },
+            { label: 'DATOS',      value: 'PostgreSQL · Neon' },
+            { label: 'DEPLOY',     value: 'Vercel' },
+            { label: 'IDE',        value: 'IntelliJ IDEA' },
         ],
     },
     '06 · Power BI': {
         index: '06',
-        title: 'Certificaciones',
-        subtitle: 'Formación continua',
+        title: 'Power BI',
+        subtitle: 'Proyecto académico ISI802',
         description:
-            'Cursos, certificaciones y formación continua que mantienen el conocimiento al día en un campo que cambia cada seis meses.',
-        bullets: ['AWS Certified', 'Meta Frontend', 'Google Cloud'],
+            'Dashboard desarrollado como parte del Trabajo Integrador de la asignatura Business Intelligence (ISI802). Análisis de vulnerabilidad territorial de la Región de O\'Higgins con modelo dimensional en estrella, medidas DAX y proyección con Machine Learning. Un primer acercamiento serio a Power BI.',
+        bullets: ['Proyecto universitario', 'Modelo Estrella', 'Medidas DAX + ML'],
         telemetry: [
-            { label: 'TOTAL',        value: '12 emitidas' },
-            { label: 'PLATAFORMAS',  value: '5 proveedores' },
-            { label: 'AÑO ÚLTIMO',   value: '2025' },
-            { label: 'HORAS',        value: '+340 h' },
-            { label: 'PROMEDIO',     value: '94%' },
-            { label: 'VIGENTES',     value: '7 activas' },
+            { label: 'CONTEXTO',    value: 'Académico ISI802' },
+            { label: 'PÁGINAS',     value: '06 reportes' },
+            { label: 'MEDIDAS DAX', value: '48 funciones' },
+            { label: 'FUENTES',     value: '04 orígenes' },
+            { label: 'REGISTROS',   value: '+180 000' },
+            { label: 'HERRAMIENTA', value: 'Power BI Desktop' },
         ],
         route: '/powerbi',
-        routeLabel: 'Dashboard Colchagua',
+        routeLabel: 'Ver dashboard',
     },
     '07 · Notebooks': {
         index: '07',
-        title: 'Blog',
-        subtitle: 'Lo que escribo',
+        title: 'Notebooks',
+        subtitle: 'Análisis académico reproducible',
         description:
-            'Notas técnicas, reflexiones sobre desarrollo y ensayos sobre la intersección entre software, diseño y producto. Escrito sin pretensiones, sin SEO, sin relleno.',
-        bullets: ['Artículos técnicos', 'Ensayos de producto', 'Notas de aprendizaje'],
+            'Notebook en Google Colab que documenta el pipeline completo del proyecto ISI802: ETL de 4 fuentes (ODEPA, CONAF, SII, Open-Meteo), modelo estrella dimensional, clustering K-Means y forecast de series temporales. Todo el código es reproducible y las fuentes son públicas.',
+        bullets: ['ETL 4 fuentes', 'Modelo estrella', 'K-Means + Forecast'],
         telemetry: [
-            { label: 'ARTÍCULOS', value: '24 publicados' },
-            { label: 'TEMAS',     value: '8 categorías' },
-            { label: 'PALABRAS',  value: '+42 000' },
-            { label: 'ÚLTIMA',    value: 'hace 6 días' },
-            { label: 'LECTURAS',  value: '+8 400' },
-            { label: 'SUSCRIPTORES', value: '340' },
+            { label: 'CONTEXTO',     value: 'Académico' },
+            { label: 'FASES',        value: '06 etapas' },
+            { label: 'FUENTES',      value: '04 datasets' },
+            { label: 'MODELOS',      value: 'K-Means · SARIMA' },
+            { label: 'HERRAMIENTAS', value: 'pandas · sklearn' },
+            { label: 'ENTORNO',      value: 'Google Colab' },
         ],
         route: '/notebooks',
-        routeLabel: 'Notebooks de análisis',
+        routeLabel: 'Ver notebooks',
     },
     '08 · Contacto': {
         index: '08',
         title: 'Contacto',
         subtitle: 'Hablemos',
         description:
-            '¿Tienes un proyecto en mente o simplemente quieres saludar? Mi bandeja de entrada está siempre abierta. Respondo en menos de 24 horas.',
+            '¿Tienes un proyecto en mente, una oportunidad junior o simplemente quieres conectar? Mi bandeja está abierta. Respondo lo antes posible, casi siempre en menos de 24 horas.',
         bullets: ['Email', 'GitHub', 'LinkedIn'],
         telemetry: [
-            { label: 'EMAIL',      value: 'tu@correo.com' },
-            { label: 'GITHUB',     value: '@tu-usuario' },
-            { label: 'LINKEDIN',   value: '/in/tu-usuario' },
-            { label: 'UBICACIÓN',  value: 'Remoto · GMT-5' },
-            { label: 'RESPUESTA',  value: '< 24 h' },
-            { label: 'ZONA',       value: 'Global' },
+            { label: 'EMAIL',     value: 'tu@correo.com' },
+            { label: 'GITHUB',    value: '@tu-usuario' },
+            { label: 'LINKEDIN',  value: '/in/tu-usuario' },
+            { label: 'UBICACIÓN', value: 'Chile' },
+            { label: 'RESPUESTA', value: '< 24 h' },
+            { label: 'IDIOMAS',   value: 'ES · EN' },
         ],
     },
 }
@@ -179,7 +179,8 @@ function useTypewriter(text: string, speed = 12, delay = 320) {
 }
 
 /* ============================================================
- *  COORDENADAS EN VIVO
+ *  COORDENADAS EN VIVO — sin re-render
+ *  Escribe directo al DOM vía refs. Throttle agresivo en mobile.
  * ============================================================ */
 function useLiveCoords(
     active: string | null,
@@ -243,10 +244,12 @@ export function PlanetReadout() {
     const [isClosing, setIsClosing] = useState(false)
     const [decodeProgress, setDecodeProgress] = useState(0)
 
+    const scrollRef = useRef<HTMLElement>(null)
     const latRef = useRef<HTMLSpanElement>(null)
     const lonRef = useRef<HTMLSpanElement>(null)
     const altRef = useRef<HTMLSpanElement>(null)
     const velRef = useRef<HTMLSpanElement>(null)
+
     useLiveCoords(focusedPlanet, latRef, lonRef, altRef, velRef)
 
     /* ---------- Close con animación CRT off ---------- */
@@ -268,6 +271,32 @@ export function PlanetReadout() {
         window.addEventListener('keydown', onKey)
         return () => window.removeEventListener('keydown', onKey)
         // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [focusedPlanet])
+
+    /* ---------- Detectar scroll para ocultar hint ---------- */
+    useEffect(() => {
+        if (!focusedPlanet) return
+        const el = scrollRef.current
+        if (!el) return
+
+        let raf = 0
+
+        const check = () => {
+            const hasScroll = el.scrollHeight > el.clientHeight + 8
+            const nearBottom =
+                el.scrollTop + el.clientHeight >= el.scrollHeight - 24
+
+            const hintEl = document.querySelector('.readout__scroll-hint')
+            if (hintEl) {
+                const shouldShow = hasScroll && !nearBottom
+                hintEl.classList.toggle('is-hidden', !shouldShow)
+            }
+
+            raf = requestAnimationFrame(check)
+        }
+
+        raf = requestAnimationFrame(check)
+        return () => cancelAnimationFrame(raf)
     }, [focusedPlanet])
 
     /* ---------- Animación de revelado ---------- */
@@ -322,7 +351,12 @@ export function PlanetReadout() {
                 <div className="readout__crt-vignette" aria-hidden="true" />
                 <div className="readout__crt-beam" aria-hidden="true" />
 
-                <aside className="readout" role="dialog" aria-modal="false">
+                <aside
+                    className="readout"
+                    role="dialog"
+                    aria-modal="false"
+                    ref={scrollRef}
+                >
                     <span className="readout__corner readout__corner--tl" />
                     <span className="readout__corner readout__corner--tr" />
                     <span className="readout__corner readout__corner--bl" />
@@ -355,7 +389,9 @@ export function PlanetReadout() {
                             <span className="readout__reticle-dot" />
                         </div>
                         <div className="readout__catalog-wrap">
-                            <span className="readout__catalog-label">OBJETO · RA 05h 42m · DEC −12° 34′</span>
+                            <span className="readout__catalog-label">
+                                OBJETO · RA 05h 42m · DEC −12° 34′
+                            </span>
                             <span className="readout__catalog-value">{catalog}</span>
                         </div>
                         <button
@@ -407,8 +443,8 @@ export function PlanetReadout() {
                             />
                         </div>
                         <span className="readout__decode-value">
-              {decodeProgress.toFixed(0).padStart(3, '0')}%
-            </span>
+                            {decodeProgress.toFixed(0).padStart(3, '0')}%
+                        </span>
                     </div>
 
                     {/* ============ GRID: telemetría + side ============ */}
@@ -461,19 +497,27 @@ export function PlanetReadout() {
                     <div className="readout__coords">
                         <div className="readout__coord">
                             <span className="readout__coord-label">LAT</span>
-                            <span className="readout__coord-value" ref={latRef}>+00.00°</span>
+                            <span className="readout__coord-value" ref={latRef}>
+                                +00.00°
+                            </span>
                         </div>
                         <div className="readout__coord">
                             <span className="readout__coord-label">LON</span>
-                            <span className="readout__coord-value" ref={lonRef}>+00.00°</span>
+                            <span className="readout__coord-value" ref={lonRef}>
+                                +00.00°
+                            </span>
                         </div>
                         <div className="readout__coord">
                             <span className="readout__coord-label">ALT</span>
-                            <span className="readout__coord-value" ref={altRef}>0.0 Mm</span>
+                            <span className="readout__coord-value" ref={altRef}>
+                                0.0 Mm
+                            </span>
                         </div>
                         <div className="readout__coord">
                             <span className="readout__coord-label">VEL</span>
-                            <span className="readout__coord-value" ref={velRef}>0.00 km/s</span>
+                            <span className="readout__coord-value" ref={velRef}>
+                                0.00 km/s
+                            </span>
                         </div>
                     </div>
 
@@ -502,31 +546,47 @@ export function PlanetReadout() {
                                 className="readout__travel-btn"
                                 onClick={() => systemStore.setWarping(info.route!)}
                             >
-                <span className="readout__travel-icon" aria-hidden="true">
-                  <span className="readout__travel-icon-inner" />
-                </span>
+                                <span className="readout__travel-icon" aria-hidden="true">
+                                    <span className="readout__travel-icon-inner" />
+                                </span>
                                 <span className="readout__travel-text">
-                  <span className="readout__travel-eyebrow">Saltar a destino</span>
-                  <span className="readout__travel-label">
-                    {info.routeLabel ?? info.route}
-                  </span>
-                </span>
+                                    <span className="readout__travel-eyebrow">
+                                        Saltar a destino
+                                    </span>
+                                    <span className="readout__travel-label">
+                                        {info.routeLabel ?? info.route}
+                                    </span>
+                                </span>
                                 <span className="readout__travel-route">{info.route}</span>
-                                <span className="readout__travel-arrow" aria-hidden="true">→</span>
+                                <span className="readout__travel-arrow" aria-hidden="true">
+                                    →
+                                </span>
                             </button>
                         </div>
                     )}
 
                     {/* ============ FOOTER ============ */}
                     <footer className="readout__foot">
-            <span className="readout__foot-hint">
-              <kbd>ESC</kbd> para desconectar señal
-            </span>
+                        <span className="readout__foot-hint">
+                            <kbd>ESC</kbd> para desconectar señal
+                        </span>
                         <span className="readout__foot-code">
-              // {info.index} — READY // SIG {`{`}LOCKED{`}`}
-            </span>
+                            // {info.index} — READY // SIG {`{`}LOCKED{`}`}
+                        </span>
                     </footer>
                 </aside>
+
+                {/* ============ SCROLL HINT ============ */}
+                <div className="readout__scroll-hint is-hidden" aria-hidden="true">
+                    <span className="readout__scroll-hint-fade" />
+                    <span className="readout__scroll-hint-chevron">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                             stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"
+                             strokeLinejoin="round">
+                            <polyline points="6 9 12 15 18 9" />
+                        </svg>
+                    </span>
+                </div>
             </div>
         </div>
     )

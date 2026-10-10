@@ -1,14 +1,8 @@
 import { useSyncExternalStore } from 'react'
 
 export type SectionId =
-    | 'inicio'
-    | 'sobre-mi'
-    | 'proyectos'
-    | 'experiencia'
-    | 'stack'
-    | 'certs'
-    | 'blog'
-    | 'contacto'
+    | 'inicio' | 'sobre-mi' | 'proyectos' | 'experiencia'
+    | 'stack' | 'powerbi' | 'notebooks' | 'contacto'
 
 export type SystemState = {
     speed: number
