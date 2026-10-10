@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { systemStore, useSystemState } from '../store/system'
-import './PlanetReadout.css'
+import '../styles/PlanetReadout.css'
 
 type Telemetry = { label: string; value: string }
 
@@ -48,23 +48,23 @@ const SECTION_INFO: Record<string, Info> = {
             { label: 'DISPONIBLE',   value: 'Sí' },
         ],
     },
-    '06 · Power BI': {
-        index: '06',
-        title: 'Power BI',
-        subtitle: 'Dashboard Colchagua',
+    '03 · Proyectos': {
+        index: '03',
+        title: 'Proyectos',
+        subtitle: 'Lo que he construido',
         description:
-            'Análisis de vulnerabilidad territorial de la Región de O\'Higgins. Visualizaciones interactivas construidas sobre un modelo dimensional en estrella, con medidas DAX optimizadas para exploración en tiempo real.',
-        bullets: ['Modelo Estrella', 'Medidas DAX', 'Análisis territorial'],
+            'Una selección de sistemas que he diseñado e implementado de punta a punta: desde dashboards en tiempo real con WebGL hasta pipelines de datos sobre terabytes de información.',
+        bullets: ['Análisis orbital', 'Motor de recomendación', 'Editor colaborativo'],
         telemetry: [
-            { label: 'PÁGINAS',      value: '6 reportes' },
-            { label: 'MEDIDAS DAX',  value: '48 funciones' },
-            { label: 'FUENTES',      value: '4 orígenes' },
-            { label: 'FILAS',        value: '+2.4 M' },
-            { label: 'REFRESH',      value: 'diario 06:00' },
-            { label: 'USUARIOS',     value: '+120 activos' },
+            { label: 'TOTAL',    value: '27 sistemas' },
+            { label: 'EN LÍNEA', value: '18 activos' },
+            { label: 'EN CURSO', value: '5 desarrollo' },
+            { label: 'ARCHIVO',  value: '4 retirados' },
+            { label: 'USUARIOS', value: '+12 000' },
+            { label: 'UPTIME',   value: '99.98%' },
         ],
-        route: '/powerbi',
-        routeLabel: 'Abrir dashboard',
+        route: '/proyectos',
+        routeLabel: 'Archivo de proyectos',
     },
     '04 · Experiencia': {
         index: '04',
@@ -98,7 +98,7 @@ const SECTION_INFO: Record<string, Info> = {
             { label: 'MONITOREO',  value: 'Sentry · DD' },
         ],
     },
-    '06 · Certificaciones': {
+    '06 · Power BI': {
         index: '06',
         title: 'Certificaciones',
         subtitle: 'Formación continua',
@@ -118,21 +118,21 @@ const SECTION_INFO: Record<string, Info> = {
     },
     '07 · Notebooks': {
         index: '07',
-        title: 'Notebooks',
-        subtitle: 'Análisis y modelos',
+        title: 'Blog',
+        subtitle: 'Lo que escribo',
         description:
-            'Pipeline completo de análisis en Jupyter: extracción, limpieza, transformación, análisis exploratorio y modelos predictivos. Cada notebook está documentado paso a paso para reproducibilidad total.',
-        bullets: ['ETL en pandas', 'Análisis exploratorio', 'Modelo predictivo'],
+            'Notas técnicas, reflexiones sobre desarrollo y ensayos sobre la intersección entre software, diseño y producto. Escrito sin pretensiones, sin SEO, sin relleno.',
+        bullets: ['Artículos técnicos', 'Ensayos de producto', 'Notas de aprendizaje'],
         telemetry: [
-            { label: 'NOTEBOOKS',  value: '12 archivos' },
-            { label: 'CELDAS',     value: '+340' },
-            { label: 'LIBRERÍAS',  value: '18 paquetes' },
-            { label: 'REGISTROS',  value: '+180 000' },
-            { label: 'PRECISIÓN',  value: '0.89 R²' },
-            { label: 'ÚLTIMA RUN', value: 'hace 3 días' },
+            { label: 'ARTÍCULOS', value: '24 publicados' },
+            { label: 'TEMAS',     value: '8 categorías' },
+            { label: 'PALABRAS',  value: '+42 000' },
+            { label: 'ÚLTIMA',    value: 'hace 6 días' },
+            { label: 'LECTURAS',  value: '+8 400' },
+            { label: 'SUSCRIPTORES', value: '340' },
         ],
         route: '/notebooks',
-        routeLabel: 'Abrir notebooks',
+        routeLabel: 'Notebooks de análisis',
     },
     '08 · Contacto': {
         index: '08',
