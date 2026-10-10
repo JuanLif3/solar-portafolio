@@ -11,6 +11,8 @@ type Info = {
     description: string
     bullets: string[]
     telemetry: Telemetry[]
+    route?: string
+    routeLabel?: string
 }
 
 const SECTION_INFO: Record<string, Info> = {
