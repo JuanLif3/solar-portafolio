@@ -488,24 +488,220 @@
 /* ============================================================
  *  RESPONSIVE
  * ============================================================ */
-@media (max-width: 1100px) {
+
+/* ---------- 1200px: ocultar hint primero (es lo menos crítico) ---------- */
+@media (max-width: 1200px) {
     .hud__hint { display: none; }
-    .hud__timeline { padding: 0.4rem 0.8rem; }
-    .hud__slider { width: 90px; }
-    .hud__clock { min-width: 6rem; font-size: 0.65rem; }
 }
 
-@media (max-width: 900px) {
-    .hud__top { padding: 1rem 1.25rem 0; }
-    .hud__bottom {
-        grid-template-columns: 1fr;
-        padding: 0 1rem 1rem;
-        gap: 0.75rem;
-    }
-    .hud__coords { justify-self: center; }
-    .hud__timeline { justify-self: center; }
-    .hud__left { left: 1rem; }
-    .hud__brand-sub,
-    .hud__status-fps { display: none; }
+/* ---------- 1024px: tablet — comprimir bottom, ocultar nav ---------- */
+@media (max-width: 1024px) {
     .hud__nav { display: none; }
+
+    .hud__coords {
+        gap: 0.9rem;
+        padding: 0.5rem 0.75rem;
+    }
+
+    .hud__coord-value {
+        min-width: 3.5rem;
+        font-size: 0.68rem;
+    }
+
+    .hud__timeline {
+        padding: 0.4rem 0.75rem;
+        gap: 0.6rem;
+    }
+
+    .hud__slider { width: 100px; }
+
+    .hud__clock {
+        min-width: 6rem;
+        font-size: 0.62rem;
+    }
+}
+
+/* ---------- 900px: mobile horizontal — apilar bottom ---------- */
+@media (max-width: 900px) {
+    /* ---------- TOP ---------- */
+    .hud__top {
+        padding: 0.9rem 1rem 0;
+        gap: 0.5rem;
+    }
+
+    .hud__brand-sub { display: none; }
+    .hud__status-fps { display: none; }
+
+    .hud__status {
+        font-size: 0.6rem;
+        letter-spacing: 0.18em;
+    }
+
+    /* ---------- LEFT RAIL: subir a la esquina superior ---------- */
+    .hud__left {
+        top: 4rem;
+        left: 0.75rem;
+        transform: none;
+        gap: 0.5rem;
+    }
+
+    .hud__rail-item {
+        width: 1.9rem;
+        height: 1.9rem;
+    }
+
+    .hud__rail-item svg {
+        width: 12px;
+        height: 12px;
+    }
+
+    /* ---------- CROSSHAIR ---------- */
+    .hud__crosshair {
+        width: 70px;
+        height: 70px;
+        opacity: 0.15;
+    }
+
+    /* ---------- BOTTOM: coords arriba, timeline abajo ---------- */
+    .hud__bottom {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 0.5rem;
+        padding: 0 0.75rem 0.85rem;
+    }
+
+    /* Coords en fila horizontal, ahora ocupan todo el ancho disponible */
+    .hud__coords {
+        order: 1;
+        gap: 1rem;
+        padding: 0.45rem 0.7rem;
+        justify-content: center;
+        width: auto;
+    }
+
+    .hud__coord-value {
+        min-width: 3rem;
+        font-size: 0.62rem;
+    }
+
+    .hud__coord-label {
+        font-size: 0.48rem;
+    }
+
+    /* Timeline centrada abajo */
+    .hud__timeline {
+        order: 2;
+        padding: 0.45rem 0.85rem;
+        gap: 0.65rem;
+    }
+
+    .hud__timeline-label { display: none; }
+    .hud__timeline-sep { display: none; }
+
+    .hud__clock {
+        font-size: 0.6rem;
+        min-width: 5rem;
+    }
+
+    .hud__slider { width: 90px; }
+
+    /* ---------- Planet labels más chicas ---------- */
+    .planet-label {
+        font-size: 12px;
+        padding: 6px 12px;
+    }
+
+    .planet-label__dot {
+        width: 5px;
+        height: 5px;
+    }
+}
+
+/* ---------- 600px: mobile vertical — coords fuera ---------- */
+@media (max-width: 600px) {
+    .hud__bottom {
+        padding: 0 0.75rem 0.75rem;
+    }
+
+    /* En vertical el coords ocupa demasiado vertical, lo ocultamos */
+    .hud__coords { display: none; }
+
+    .hud__timeline {
+        padding: 0.45rem 0.9rem;
+        gap: 0.7rem;
+    }
+
+    .hud__pause {
+        width: 1.75rem;
+        height: 1.75rem;
+    }
+
+    .hud__slider { width: 100px; }
+
+    .hud__clock {
+        font-size: 0.62rem;
+        min-width: 5.25rem;
+    }
+}
+
+/* ---------- 480px: mobile muy pequeño ---------- */
+@media (max-width: 480px) {
+    .hud__top {
+        padding: 0.8rem 0.9rem 0;
+    }
+
+    .hud__brand {
+        font-size: 0.6rem;
+        letter-spacing: 0.2em;
+    }
+
+    .hud__status {
+        font-size: 0.55rem;
+        letter-spacing: 0.14em;
+    }
+
+    .hud__left {
+        top: 3.5rem;
+        left: 0.6rem;
+        gap: 0.4rem;
+    }
+
+    .hud__rail-item {
+        width: 1.7rem;
+        height: 1.7rem;
+    }
+
+    .hud__rail-item svg {
+        width: 11px;
+        height: 11px;
+    }
+
+    .hud__crosshair {
+        width: 55px;
+        height: 55px;
+    }
+
+    .hud__timeline {
+        padding: 0.4rem 0.75rem;
+        gap: 0.55rem;
+    }
+
+    .hud__pause {
+        width: 1.55rem;
+        height: 1.55rem;
+    }
+
+    .hud__slider { width: 75px; }
+
+    .hud__clock {
+        font-size: 0.58rem;
+        min-width: 4.5rem;
+    }
+
+    .planet-label {
+        font-size: 11px;
+        padding: 5px 10px;
+    }
 }

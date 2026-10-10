@@ -1139,20 +1139,20 @@
 @media (max-width: 900px) {
     .readout-anchor {
         top: auto;
-        bottom: 5.5rem;
-        right: 1rem;
-        left: 1rem;
+        bottom: 4.75rem;
+        right: 0.75rem;
+        left: 0.75rem;
         width: auto;
-        max-height: 56vh;
+        max-height: 62vh;
         transform: none;
     }
 
     .readout-shell {
-        animation: tvOnMobile 0.55s cubic-bezier(0.23, 1, 0.32, 1) both;
+        animation: tvOnMobile 0.5s cubic-bezier(0.23, 1, 0.32, 1) both;
     }
 
     .readout-anchor.is-closing .readout-shell {
-        animation: tvOffMobile 0.45s cubic-bezier(0.55, 0, 0.85, 0.4) forwards;
+        animation: tvOffMobile 0.4s cubic-bezier(0.55, 0, 0.85, 0.4) forwards;
     }
 
     @keyframes tvOnMobile {
@@ -1170,53 +1170,273 @@
     .readout {
         border-left: none;
         border-top: 1px solid rgba(255, 217, 122, 0.55);
-        border-radius: 0.75rem 0.75rem 0 0;
-        padding: 1.25rem 1.25rem 1rem;
+        border-radius: 0.75rem;
+        padding: 1rem 1rem 0.9rem;
     }
 
     .readout__crt-scanlines,
     .readout__crt-flicker,
     .readout__crt-vignette,
     .readout__crt-flash {
-        border-radius: 0.75rem 0.75rem 0 0;
+        border-radius: 0.75rem;
     }
 
-    .readout__grid {
-        grid-template-columns: 1fr;
+    /* ---- Header más compacto ---- */
+    .readout__head {
+        margin-bottom: 0.75rem;
+        padding-bottom: 0.55rem;
+        font-size: 0.52rem;
+        letter-spacing: 0.2em;
+        gap: 0.5rem;
     }
 
-    .readout__side {
-        padding-left: 0;
-        padding-top: 1rem;
-        border-left: none;
-        border-top: 1px dashed rgba(255, 217, 122, 0.18);
-        flex-direction: row;
-        align-items: center;
+    .readout__head-mid {
+        gap: 0.4rem;
+        font-size: 0.48rem;
     }
 
-    .readout__radar {
-        width: 80px;
-        flex: 0 0 auto;
+    .readout__chan,
+    .readout__hz {
+        padding: 0.1rem 0.35rem;
+    }
+
+    /* ---- Reticle + catálogo ---- */
+    .readout__reticle-row {
+        gap: 0.7rem;
+        margin-bottom: 0.85rem;
+    }
+
+    .readout__reticle {
+        width: 36px;
+        height: 36px;
+    }
+
+    .readout__reticle-corner {
+        width: 8px;
+        height: 8px;
+    }
+
+    .readout__catalog-label {
+        font-size: 0.5rem;
+        letter-spacing: 0.12em;
+    }
+
+    .readout__catalog-value {
+        font-size: 0.85rem;
+    }
+
+    .readout__close {
+        width: 1.75rem;
+        height: 1.75rem;
+    }
+
+    /* ---- Subtítulo + título ---- */
+    .readout__subtitle {
+        font-size: 0.55rem;
+        letter-spacing: 0.24em;
+        margin-bottom: 0.35rem;
+    }
+
+    .readout__scanline {
+        margin-bottom: 0.75rem;
     }
 
     .readout__title {
-        font-size: 1.75rem;
+        font-size: 1.35rem !important;
+        margin-bottom: 0.6rem;
+        line-height: 1.05;
     }
 
-    .readout__border-pulse {
-        left: 0;
-        right: 0;
-        top: -1px;
-        width: 100%;
-        height: 2px;
-        background: linear-gradient(to right, transparent, #ffd97a 40%, #ffd97a 60%, transparent);
-        animation: borderPulseH 3s ease-in-out infinite;
+    /* ---- Descripción ---- */
+    .readout__desc {
+        font-size: 0.82rem;
+        line-height: 1.6;
+        min-height: auto;
+        margin-bottom: 1rem;
     }
 
-    @keyframes borderPulseH {
-        0%   { left: -10%; opacity: 0; }
-        10%  { opacity: 1; }
-        90%  { opacity: 1; }
-        100% { left: 110%; opacity: 0; }
+    /* ---- Barra decodificación ---- */
+    .readout__decode {
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+        font-size: 0.55rem;
+        letter-spacing: 0.12em;
+    }
+
+    .readout__decode-label {
+        font-size: 0.52rem;
+    }
+
+    .readout__decode-value {
+        min-width: 2.6rem;
+        font-size: 0.6rem;
+    }
+
+    /* ---- Grid: solo telemetría, ocultar radar/wave en mobile ---- */
+    .readout__grid {
+        grid-template-columns: 1fr;
+        gap: 0;
+        margin-bottom: 0.9rem;
+    }
+
+    .readout__side {
+        display: none;
+    }
+
+    /* ---- Telemetría más compacta ---- */
+    .readout__section-label {
+        font-size: 0.5rem;
+        letter-spacing: 0.24em;
+        margin-bottom: 0.5rem;
+    }
+
+    .readout__telemetry-list {
+        gap: 0.32rem;
+    }
+
+    .readout__telemetry-row {
+        font-size: 0.68rem;
+        gap: 0.4rem;
+    }
+
+    .readout__telemetry-key {
+        font-size: 0.62rem;
+    }
+
+    .readout__telemetry-value {
+        font-size: 0.68rem;
+    }
+
+    /* ---- Coords: 2 columnas en mobile ---- */
+    .readout__coords {
+        grid-template-columns: 1fr 1fr;
+        gap: 0.4rem 0.5rem;
+        margin-bottom: 0.9rem;
+        padding: 0.5rem 0.55rem;
+        font-size: 0.6rem;
+    }
+
+    .readout__coord + .readout__coord {
+        padding-left: 0.5rem;
+    }
+
+    .readout__coord-label {
+        font-size: 0.48rem;
+        letter-spacing: 0.16em;
+    }
+
+    .readout__coord-value {
+        font-size: 0.62rem;
+    }
+
+    /* ---- Features ---- */
+    .readout__features {
+        margin-bottom: 1rem;
+    }
+
+    .readout__features-list {
+        gap: 0.35rem;
+    }
+
+    .readout__feature {
+        font-size: 0.78rem;
+        gap: 0.5rem;
+    }
+
+    /* ---- Travel button ---- */
+    .readout__travel {
+        margin-bottom: 0.85rem;
+        padding-top: 0.75rem;
+    }
+
+    .readout__travel-btn {
+        grid-template-columns: auto 1fr auto;
+        gap: 0.7rem;
+        padding: 0.75rem 0.85rem;
+    }
+
+    .readout__travel-icon {
+        width: 2rem;
+        height: 2rem;
+    }
+
+    .readout__travel-icon-inner {
+        width: 0.5rem;
+        height: 0.5rem;
+    }
+
+    .readout__travel-eyebrow {
+        font-size: 0.5rem;
+        letter-spacing: 0.22em;
+    }
+
+    .readout__travel-label {
+        font-size: 0.82rem;
+    }
+
+    .readout__travel-route {
+        display: none;
+    }
+
+    .readout__travel-arrow {
+        font-size: 0.95rem;
+    }
+
+    /* ---- Footer ---- */
+    .readout__foot {
+        padding-top: 0.75rem;
+        font-size: 0.52rem;
+        letter-spacing: 0.16em;
+    }
+
+    .readout__foot-hint kbd {
+        font-size: 0.5rem;
+        padding: 0.1rem 0.32rem;
+    }
+
+    .readout__foot-code {
+        font-size: 0.5rem;
+    }
+
+    /* ---- Esquinas HUD más chicas ---- */
+    .readout__corner {
+        width: 8px;
+        height: 8px;
+    }
+    .readout__corner--tl { top: 5px; left: 5px; }
+    .readout__corner--tr { top: 5px; right: 5px; }
+    .readout__corner--bl { bottom: 5px; left: 5px; }
+    .readout__corner--br { bottom: 5px; right: 5px; }
+}
+
+/* ============================================================
+ *  MOBILE PEQUEÑO (< 400px)
+ * ============================================================ */
+@media (max-width: 400px) {
+    .readout-anchor {
+        left: 0.5rem;
+        right: 0.5rem;
+        max-height: 68vh;
+    }
+
+    .readout {
+        padding: 0.85rem 0.85rem 0.75rem;
+    }
+
+    .readout__title {
+        font-size: 1.15rem !important;
+    }
+
+    .readout__desc {
+        font-size: 0.76rem;
+    }
+
+    .readout__telemetry-row {
+        font-size: 0.62rem;
+    }
+
+    .readout__telemetry-key,
+    .readout__telemetry-value {
+        font-size: 0.6rem;
     }
 }
