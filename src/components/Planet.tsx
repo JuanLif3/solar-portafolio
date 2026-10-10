@@ -3,6 +3,7 @@ import { useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
 import { Html } from '@react-three/drei'
 import { systemStore, useSystemState, type SectionId } from '../store/system'
+import { planetPositions } from '../store/planetPositions'
 
 export type PlanetKind =
     | 'mercury'
@@ -24,9 +25,6 @@ export type PlanetConfig = {
     label: string
 }
 
-/* ============================================================
- *  VERTEX — compartido
- * ============================================================ */
 const planetVert = /* glsl */ `
   varying vec3 vNormal;
   varying vec3 vViewDir;
@@ -282,6 +280,7 @@ export function Planet({ kind, distance, size, speed, tilt = 0, label }: PlanetC
     const orbitRef = useRef<THREE.Group>(null)
     const planetRef = useRef<THREE.Mesh>(null)
     const angleRef = useRef(Math.random() * Math.PI * 2)
+    const worldPosRef = useRef(new THREE.Vector3())
 
     // Detecta si esta sección es la activa para resaltar el label.
     const sectionId = useMemo(() => labelToSectionId(label), [label])
@@ -297,7 +296,6 @@ export function Planet({ kind, distance, size, speed, tilt = 0, label }: PlanetC
     )
 
     useFrame((_, delta) => {
-        // Lee el estado sin provocar re-render.
         const { paused, speed: globalSpeed } = systemStore.getState()
         const eff = paused ? 0 : globalSpeed
         const d = Math.min(delta, 0.05) * eff
@@ -310,9 +308,12 @@ export function Planet({ kind, distance, size, speed, tilt = 0, label }: PlanetC
 
         if (planetRef.current) {
             planetRef.current.rotation.y += d * 0.3
+            planetRef.current.getWorldPosition(worldPosRef.current)
+            const existing = planetPositions.get(label)
+            if (existing) existing.copy(worldPosRef.current)
+            else planetPositions.set(label, worldPosRef.current.clone())
         }
 
-        // El tiempo del shader también respeta pausa/velocidad.
         uniforms.uTime.value += d
     })
 
@@ -378,14 +379,16 @@ export function Planet({ kind, distance, size, speed, tilt = 0, label }: PlanetC
             {/* ============ PLANETA ORBITANDO ============ */}
             <group ref={orbitRef}>
                 <group rotation={[0, 0, tilt]} scale={size}>
-                    <mesh ref={planetRef}>
-                        <sphereGeometry args={[1, 64, 64]} />
-                        <shaderMaterial
-                            uniforms={uniforms}
-                            vertexShader={planetVert}
-                            fragmentShader={planetFrag}
-                            toneMapped={false}
-                        />
+                    <mesh
+                        ref={planetRef}
+                        onClick={(e) => {
+                            e.stopPropagation()
+                            const { focusedPlanet } = systemStore.getState()
+                            systemStore.setFocusedPlanet(focusedPlanet === label ? null : label)
+                        }}
+                        onPointerOver={() => (document.body.style.cursor = 'pointer')}
+                        onPointerOut={() => (document.body.style.cursor = '')}
+                    >
                     </mesh>
                     {atmo && <Atmosphere color={atmo.color} intensity={atmo.intensity} />}
                     {kind === 'saturn' && <Rings />}
