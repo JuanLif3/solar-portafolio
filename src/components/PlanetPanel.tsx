@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { systemStore, useSystemState } from '../store/system'
-import './PlanetPanel.css'
+import '../styles/PlanetPanel.css'
 
 type Info = {
     index: string
@@ -81,7 +81,6 @@ export function PlanetPanel() {
     const { focusedPlanet } = useSystemState()
     const info = focusedPlanet ? SECTION_INFO[focusedPlanet] : null
 
-    // Cerrar con Escape
     useEffect(() => {
         if (!focusedPlanet) return
         const onKey = (e: KeyboardEvent) => {
