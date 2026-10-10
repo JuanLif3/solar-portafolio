@@ -418,16 +418,7 @@ export function PlanetReadout() {
                                 <span className="readout__radar-blip" />
                             </div>
 
-                            {/* Waveform */}
-                            <div className="readout__wave" aria-hidden="true">
-                                {Array.from({ length: 22 }).map((_, i) => (
-                                    <span
-                                        key={i}
-                                        className="readout__wave-bar"
-                                        style={{ animationDelay: `${i * 60}ms` }}
-                                    />
-                                ))}
-                            </div>
+
                         </aside>
                     </div>
 
