@@ -15,8 +15,8 @@ const PLANETS: PlanetConfig[] = [
     { name: 'Tierra',   kind: 'earth',   distance: 6.4,  size: 0.27, speed: 0.85, tilt: 0.41, label: '03 · Proyectos', route: '/powerbi', warpLabel: 'Dashboard Colchagua' },
     { name: 'Marte',    kind: 'mars',    distance: 8.2,  size: 0.21, speed: 0.65, tilt: 0.44, label: '04 · Experiencia' },
     { name: 'Júpiter',  kind: 'jupiter', distance: 11.4, size: 0.58, speed: 0.38, tilt: 0.05, label: '05 · Stack', route: '/notebooks', warpLabel: 'Notebooks' },
-    { name: 'Saturno',  kind: 'saturn',  distance: 15.0, size: 0.48, speed: 0.28, tilt: 0.47, label: '06 · Certificaciones' },
-    { name: 'Urano',    kind: 'uranus',  distance: 18.6, size: 0.34, speed: 0.20, tilt: 1.71, label: '07 · Blog' },
+    { name: 'Saturno',  kind: 'saturn',  distance: 15.0, size: 0.48, speed: 0.28, tilt: 0.47, label: '06 · Power BI' },
+    { name: 'Urano',    kind: 'uranus',  distance: 18.6, size: 0.34, speed: 0.20, tilt: 1.71, label: '07 · Notebooks' },
     { name: 'Neptuno',  kind: 'neptune', distance: 22.0, size: 0.33, speed: 0.15, tilt: 0.49, label: '08 · Contacto' },
 ]
 
