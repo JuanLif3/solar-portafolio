@@ -1,75 +1,40 @@
-# React + TypeScript + Vite
+# Portafolio · Sistema Solar
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Portafolio interactivo construido con React + Vite + React Three Fiber.
+Presenta tres proyectos reales, el Trabajo Integrador ISI802 (Power BI +
+Notebooks) y conclusiones sobre vulnerabilidad territorial en Colchagua.
 
-Currently, two official plugins are available:
+## Stack
+- React 18 + Vite + TypeScript
+- React Three Fiber + Drei + Three.js
+- React Router DOM
+- Recharts (gráficos Power BI incrustados)
+- CSS Modules / CSS plano por componente
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Cómo correr localmente
+\`\`\`bash
+git clone https://github.com/JuanLif3/<repo>.git
+cd <repo>
+npm install
+npm run dev
+\`\`\`
 
-## React Compiler
+## Cómo desplegar
+Conectado a Vercel. Push a `main` → build automático → preview por PR.
+Build: `npm run build` · Output: `dist/`
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Estructura
+\`\`\`
+src/
+  components/   → componentes reutilizables (Scene, HUD, Readout…)
+  pages/        → rutas (SolarSystem, PowerBI, Notebooks, Proyectos)
+  store/        → estado global (Zustand-like store propio)
+  styles/       → CSS por feature
+\`\`\`
 
-## Expanding the ESLint configuration
+## Declaración de uso de IA
+Se usó IA como asistente de desarrollo (revisión, redacción, variantes CSS).
+Todo el código fue comprendido y adaptado por el autor.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
-```
-
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
-```
+## Autor
+Juan Riveros · [GitHub](https://github.com/JuanLif3)
