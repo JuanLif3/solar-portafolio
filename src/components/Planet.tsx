@@ -25,6 +25,9 @@ export type PlanetConfig = {
     label: string
 }
 
+/* ============================================================
+ *  VERTEX — compartido
+ * ============================================================ */
 const planetVert = /* glsl */ `
   varying vec3 vNormal;
   varying vec3 vViewDir;
@@ -39,7 +42,7 @@ const planetVert = /* glsl */ `
 `
 
 /* ============================================================
- *  FRAGMENT — minimalista
+ *  FRAGMENT
  * ============================================================ */
 const planetFrag = /* glsl */ `
   uniform float uTime;
@@ -251,14 +254,12 @@ const ATMO: Partial<Record<PlanetKind, { color: string; intensity: number }>> = 
 }
 
 /* ============================================================
- *  Extrae el id de sección desde la etiqueta.
- *  "03 · Proyectos" → "proyectos"
+ *  label → SectionId
  * ============================================================ */
 function labelToSectionId(label: string): SectionId | null {
     const parts = label.split('·')
     if (parts.length < 2) return null
     const raw = parts[1].trim().toLowerCase()
-    // Normaliza acentos y espacios para que coincida con SectionId
     const normalized = raw
         .normalize('NFD')
         .replace(/[\u0300-\u036f]/g, '')
@@ -282,7 +283,6 @@ export function Planet({ kind, distance, size, speed, tilt = 0, label }: PlanetC
     const angleRef = useRef(Math.random() * Math.PI * 2)
     const worldPosRef = useRef(new THREE.Vector3())
 
-    // Detecta si esta sección es la activa para resaltar el label.
     const sectionId = useMemo(() => labelToSectionId(label), [label])
     const isActive = sectionId !== null && activeSection === sectionId
 
@@ -308,6 +308,8 @@ export function Planet({ kind, distance, size, speed, tilt = 0, label }: PlanetC
 
         if (planetRef.current) {
             planetRef.current.rotation.y += d * 0.3
+
+            // Guarda posición de mundo (para CameraFollow)
             planetRef.current.getWorldPosition(worldPosRef.current)
             const existing = planetPositions.get(label)
             if (existing) existing.copy(worldPosRef.current)
@@ -321,9 +323,8 @@ export function Planet({ kind, distance, size, speed, tilt = 0, label }: PlanetC
 
     return (
         <>
-            {/* ============ ÓRBITAS (visibilidad controlada) ============ */}
+            {/* ============ ÓRBITAS ============ */}
             <group visible={showOrbits}>
-                {/* Halo suave */}
                 <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.002, 0]}>
                     <ringGeometry args={[distance - 0.18, distance + 0.18, 220]} />
                     <meshBasicMaterial
@@ -336,7 +337,6 @@ export function Planet({ kind, distance, size, speed, tilt = 0, label }: PlanetC
                     />
                 </mesh>
 
-                {/* Línea principal */}
                 <mesh rotation={[-Math.PI / 2, 0, 0]}>
                     <ringGeometry args={[distance - 0.012, distance + 0.012, 240]} />
                     <meshBasicMaterial
@@ -349,7 +349,6 @@ export function Planet({ kind, distance, size, speed, tilt = 0, label }: PlanetC
                     />
                 </mesh>
 
-                {/* Ticks cada 15° */}
                 {Array.from({ length: 24 }).map((_, i) => {
                     const angle = (i / 24) * Math.PI * 2
                     const tickLen = i % 6 === 0 ? 0.12 : 0.05
@@ -379,22 +378,37 @@ export function Planet({ kind, distance, size, speed, tilt = 0, label }: PlanetC
             {/* ============ PLANETA ORBITANDO ============ */}
             <group ref={orbitRef}>
                 <group rotation={[0, 0, tilt]} scale={size}>
+                    {/* Esfera clickable */}
                     <mesh
                         ref={planetRef}
                         onClick={(e) => {
                             e.stopPropagation()
                             const { focusedPlanet } = systemStore.getState()
-                            systemStore.setFocusedPlanet(focusedPlanet === label ? null : label)
+                            systemStore.setFocusedPlanet(
+                                focusedPlanet === label ? null : label,
+                            )
                         }}
-                        onPointerOver={() => (document.body.style.cursor = 'pointer')}
-                        onPointerOut={() => (document.body.style.cursor = '')}
+                        onPointerOver={() => {
+                            document.body.style.cursor = 'pointer'
+                        }}
+                        onPointerOut={() => {
+                            document.body.style.cursor = ''
+                        }}
                     >
+                        <sphereGeometry args={[1, 64, 64]} />
+                        <shaderMaterial
+                            uniforms={uniforms}
+                            vertexShader={planetVert}
+                            fragmentShader={planetFrag}
+                            toneMapped={false}
+                        />
                     </mesh>
+
                     {atmo && <Atmosphere color={atmo.color} intensity={atmo.intensity} />}
                     {kind === 'saturn' && <Rings />}
                 </group>
 
-                {/* ============ ETIQUETA FLOTANTE ============ */}
+                {/* Etiqueta */}
                 {showLabels && (
                     <Html
                         center
