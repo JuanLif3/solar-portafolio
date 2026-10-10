@@ -63,6 +63,8 @@ const SECTION_INFO: Record<string, Info> = {
             { label: 'USUARIOS', value: '+12 000' },
             { label: 'UPTIME',   value: '99.98%' },
         ],
+        route: '/powerbi',
+        routeLabel: 'DASHBOARD COLCHAGUA',
     },
     '04 · Experiencia': {
         index: '04',
@@ -470,6 +472,29 @@ export function PlanetReadout() {
                             ))}
                         </ul>
                     </section>
+
+                    {/* ============ TRAVEL BUTTON ============ */}
+                    {info.route && (
+                        <div className="readout__travel">
+                            <button
+                                type="button"
+                                className="readout__travel-btn"
+                                onClick={() => systemStore.setWarping(info.route!)}
+                            >
+      <span className="readout__travel-icon" aria-hidden="true">
+        <span className="readout__travel-icon-inner" />
+      </span>
+                                <span className="readout__travel-text">
+        <span className="readout__travel-eyebrow">Saltar a destino</span>
+        <span className="readout__travel-label">
+          {info.routeLabel ?? info.route}
+        </span>
+      </span>
+                                <span className="readout__travel-route">{info.route}</span>
+                                <span className="readout__travel-arrow" aria-hidden="true">→</span>
+                            </button>
+                        </div>
+                    )}
 
                     {/* ============ FOOTER ============ */}
                     <footer className="readout__foot">
