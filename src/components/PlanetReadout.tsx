@@ -220,7 +220,7 @@ export function PlanetReadout() {
         setTimeout(() => {
             systemStore.setFocusedPlanet(null)
             setIsClosing(false)
-        }, 520)
+        }, 420)
     }
 
     /* ---------- Escape ---------- */
@@ -377,11 +377,11 @@ export function PlanetReadout() {
                             />
                         </div>
                         <span className="readout__decode-value">
-              {decodeProgress.toFixed(0).padStart(3, '0')}%
-            </span>
+                            {decodeProgress.toFixed(0).padStart(3, '0')}%
+                        </span>
                     </div>
 
-                    {/* ============ GRID: telemetría + side ============ */}
+                    {/* ============ GRID: telemetría + side (radar + wave) ============ */}
                     <div className="readout__grid">
                         {/* ---- Telemetría ---- */}
                         <section className="readout__telemetry">
@@ -428,37 +428,37 @@ export function PlanetReadout() {
                                     />
                                 ))}
                             </div>
-
-                            {/* Live coords */}
-                            <div className="readout__coords">
-                                <div className="readout__coord">
-                                    <span className="readout__coord-label">LAT</span>
-                                    <span className="readout__coord-value">
-                    {coords.lat >= 0 ? '+' : '−'}
-                                        {Math.abs(coords.lat).toFixed(2)}°
-                  </span>
-                                </div>
-                                <div className="readout__coord">
-                                    <span className="readout__coord-label">LON</span>
-                                    <span className="readout__coord-value">
-                    {coords.lon >= 0 ? '+' : '−'}
-                                        {Math.abs(coords.lon).toFixed(2)}°
-                  </span>
-                                </div>
-                                <div className="readout__coord">
-                                    <span className="readout__coord-label">ALT</span>
-                                    <span className="readout__coord-value">
-                    {coords.alt.toFixed(1)} Mm
-                  </span>
-                                </div>
-                                <div className="readout__coord">
-                                    <span className="readout__coord-label">VEL</span>
-                                    <span className="readout__coord-value">
-                    {coords.vel.toFixed(2)} km/s
-                  </span>
-                                </div>
-                            </div>
                         </aside>
+                    </div>
+
+                    {/* ============ COORDS — franja horizontal ancho completo ============ */}
+                    <div className="readout__coords">
+                        <div className="readout__coord">
+                            <span className="readout__coord-label">LAT</span>
+                            <span className="readout__coord-value">
+                                {coords.lat >= 0 ? '+' : '−'}
+                                {Math.abs(coords.lat).toFixed(2)}°
+                            </span>
+                        </div>
+                        <div className="readout__coord">
+                            <span className="readout__coord-label">LON</span>
+                            <span className="readout__coord-value">
+                                {coords.lon >= 0 ? '+' : '−'}
+                                {Math.abs(coords.lon).toFixed(2)}°
+                            </span>
+                        </div>
+                        <div className="readout__coord">
+                            <span className="readout__coord-label">ALT</span>
+                            <span className="readout__coord-value">
+                                {coords.alt.toFixed(1)} Mm
+                            </span>
+                        </div>
+                        <div className="readout__coord">
+                            <span className="readout__coord-label">VEL</span>
+                            <span className="readout__coord-value">
+                                {coords.vel.toFixed(2)} km/s
+                            </span>
+                        </div>
                     </div>
 
                     {/* ============ FEATURES ============ */}
@@ -480,12 +480,12 @@ export function PlanetReadout() {
 
                     {/* ============ FOOTER ============ */}
                     <footer className="readout__foot">
-            <span className="readout__foot-hint">
-              <kbd>ESC</kbd> para desconectar señal
-            </span>
+                        <span className="readout__foot-hint">
+                            <kbd>ESC</kbd> para desconectar señal
+                        </span>
                         <span className="readout__foot-code">
-              // {info.index} — READY // SIG {`{`}LOCKED{`}`}
-            </span>
+                            // {info.index} — READY // SIG {`{`}LOCKED{`}`}
+                        </span>
                     </footer>
                 </aside>
             </div>
