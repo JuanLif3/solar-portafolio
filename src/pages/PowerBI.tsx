@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import './PowerBI.css'
+import '../styles/PowerBI.css'
 
 export function PowerBI() {
     return (
