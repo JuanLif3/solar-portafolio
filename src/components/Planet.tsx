@@ -23,6 +23,8 @@ export type PlanetConfig = {
     speed: number
     tilt?: number
     label: string
+    route?: string
+    warpLabel?: string
 }
 
 /* ============================================================
