@@ -8,8 +8,6 @@ import './styles/Notebooks.css'
 const COLAB_URL =
     'https://colab.research.google.com/drive/1jBhoUPe6ihNb3irfjyFBdul8XhiYQS2Y?usp=sharing'
 
-const GITHUB_USER = 'JuanLif3'
-const GITHUB_REPO = 'colchagua-bi'
 const GITHUB_URL = `https://github.com/Crisx-Dev/Proyecto_Analitica_Colchagua.git`
 
 /* ============================================================

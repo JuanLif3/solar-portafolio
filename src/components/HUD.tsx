@@ -29,7 +29,6 @@ export function HUD() {
 
     // ============ Coordenadas / tiempo / fps en vivo ============
     useEffect(() => {
-        let last = performance.now()
         let frames = 0
         let fpsTimer = performance.now()
         let fps = 60
@@ -37,8 +36,6 @@ export function HUD() {
         let raf = 0
         const loop = () => {
             const now = performance.now()
-            const dt = now - last
-            last = now
             frames++
 
             if (now - fpsTimer > 500) {

@@ -2,7 +2,7 @@ import type { ReactNode } from 'react'
 import {
     ResponsiveContainer,
     BarChart, Bar,
-    LineChart, Line,
+    Line,
     ComposedChart,
     ScatterChart, Scatter, ZAxis,
     XAxis, YAxis, CartesianGrid, Tooltip, Legend,
@@ -185,7 +185,7 @@ export function ChartVentasUF() {
                     />
                     <Tooltip
                         contentStyle={TOOLTIP_STYLE}
-                        formatter={(v: number) => [`${v} mill. UF`, 'Ventas']}
+                        formatter={(v) => [`${Number(v)} mill. UF`, 'Ventas']}
                     />
                     <Bar dataKey="uf" fill={PBI.blue} />
                 </BarChart>
@@ -240,9 +240,9 @@ export function ChartEmpresasTrabajadores() {
                     />
                     <Tooltip
                         contentStyle={TOOLTIP_STYLE}
-                        formatter={(v: number, name: string) => {
-                            if (name === 'trabajadores') return [`${v} mil`, 'Trabajadores Sector Agro']
-                            return [`${v}`, 'Empresas Sector Agro']
+                        formatter={(v, name) => {
+                            if (name === 'trabajadores') return [`${Number(v)} mil`, 'Trabajadores Sector Agro']
+                            return [`${Number(v)}`, 'Empresas Sector Agro']
                         }}
                     />
                     <Line
@@ -321,9 +321,9 @@ export function ChartHectareasVentas() {
                     />
                     <Tooltip
                         contentStyle={TOOLTIP_STYLE}
-                        formatter={(v: number, name: string) => {
-                            if (name === 'ha') return [`${v}`, 'T.Hectareas quemadas']
-                            return [`${v} mill.`, 'Ventas Sector Agro']
+                        formatter={(v, name) => {
+                            if (name === 'ha') return [`${Number(v)}`, 'T.Hectareas quemadas']
+                            return [`${Number(v)} mill.`, 'Ventas Sector Agro']
                         }}
                     />
                     <Bar
@@ -399,7 +399,7 @@ export function ChartVegetacion() {
                     />
                     <Tooltip
                         contentStyle={TOOLTIP_STYLE}
-                        formatter={(v: number) => `${v}%`}
+                        formatter={(v) => `${Number(v)}%`}
                     />
                     <Bar dataKey="vegetacion" stackId="a" fill={PBI.blue} name="Vegetación" />
                     <Bar dataKey="plantaciones" stackId="a" fill={PBI.blueDark} name="Plantaciones" />
@@ -463,9 +463,9 @@ export function ChartPrecipitacionVentas() {
                     />
                     <Tooltip
                         contentStyle={TOOLTIP_STYLE}
-                        formatter={(v: number, name: string) => {
-                            if (name === 'precip') return [`${v} mm`, 'Precipitación Anual mm']
-                            return [`${v} mill.`, 'Ventas Sector Agro']
+                        formatter={(v, name) => {
+                            if (name === 'precip') return [`${Number(v)} mm`, 'Precipitación Anual mm']
+                            return [`${Number(v)} mill.`, 'Ventas Sector Agro']
                         }}
                     />
                     <Bar
