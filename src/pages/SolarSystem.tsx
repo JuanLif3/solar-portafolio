@@ -6,8 +6,8 @@ export function SolarSystem() {
     return (
         <>
             <Scene />
-                <HUD />
-                <PlanetReadout />
+            <HUD />
+            <PlanetReadout />
             <div className="vignette" aria-hidden="true" />
         </>
     )
