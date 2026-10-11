@@ -25,7 +25,7 @@ Portafolio profesional construido con **React + Vite + TypeScript** y **React Th
 
 ```bash
 git clone https://github.com/JuanLif3/solar-portafolio.git
-cd portafolio-solar
+cd solar-portafolio
 npm install
 npm run dev
 ```
