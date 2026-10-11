@@ -125,8 +125,7 @@ Técnico en Programación y Análisis de Sistemas
 Full Stack Developer · TypeScript · React · NestJS
 
 - GitHub: [@JuanLif3](https://github.com/JuanLif3)
-- LinkedIn: [/in/tu-usuario](https://linkedin.com/in/tu-usuario)
-- Email: tu@correo.com
+- Email: juan.riverosp@correoaiep.cl
 
 ---
 
