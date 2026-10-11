@@ -59,7 +59,6 @@ src/
 │   ├── CameraFollow.tsx     # Cámara que sigue al planeta enfocado
 │   ├── HUD.tsx              # Interfaz superior/inferior (navegación, velocidad, atajos)
 │   ├── PlanetReadout.tsx    # Panel lateral CRT con información de cada sección
-│   ├── PlanetPanel.tsx      # Panel alternativo (usado en mobile como fallback)
 │   ├── WarpOverlay.tsx      # Animación de salto hiperespacial
 │   ├── WarpPortal.tsx       # Lógica de navegación con warp entre rutas
 │   └── PowerBICharts.tsx    # Gráficos Recharts que replican el dashboard de Power BI

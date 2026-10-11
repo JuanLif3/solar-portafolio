@@ -16,7 +16,7 @@ import '../styles/PowerBI.css'
  *  CONFIG
  * ============================================================ */
 const PBIX_DOWNLOAD_URL =
-    'https://correoaiep-my.sharepoint.com/:u:/g/personal/juan_riverosp_correoaiep_cl/IQAaZGM-K2VxSL462Y0141XzASN3wPb2IjjsA7_o4gIlF1k?e=jrz1vr&download=1'
+    'hhttps://correoaiep-my.sharepoint.com/:u:/g/personal/juan_riverosp_correoaiep_cl/IQAaZGM-K2VxSL462Y0141XzASN3wPb2IjjsA7_o4gIlF1k?e=sDAKNc'
 
 const PBIX_FILENAME = 'Proyecto_Colchagua.pbix'
 
