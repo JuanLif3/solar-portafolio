@@ -52,8 +52,8 @@ export function SiteFooter({
                             </a>
                         </li>
                         <li>
-                            <a href="mailto:juan.riveros@correo.cl">
-                                juan.riveros@correo.cl
+                            <a href="mailto:juan.riverosp@correoaiep.cl">
+                                juan.riverosp@correoaiep.cl
                             </a>
                         </li>
                     </ul>
