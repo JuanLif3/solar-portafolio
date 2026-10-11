@@ -2,30 +2,30 @@
 
 Portafolio profesional construido con **React + Vite + TypeScript** y **React Three Fiber**, que presenta tres proyectos reales desplegados, el Trabajo Integrador de Business Intelligence (ISI802) sobre vulnerabilidad territorial en la Región de O'Higgins, y una síntesis de los hallazgos del análisis.
 
-**Demo en vivo:** [https://tu-proyecto.vercel.app](https://tu-proyecto.vercel.app)
+**Demo en vivo:** [https://solar-portafolio.vercel.app/](https://solar-portafolio.vercel.app/)
 **Repositorio:** [https://github.com/JuanLif3/solar-portafolio.git](https://github.com/JuanLif3/solar-portafolio.git)
 
 ---
 
 ## Stack
 
-| Capa | Tecnología |
-|---|---|
-| Frontend | React 18, Vite, TypeScript |
-| 3D / WebGL | Three.js, React Three Fiber, Drei |
-| Enrutado | React Router DOM |
-| Gráficos | Recharts (adaptación visual del reporte Power BI) |
-| Estilos | CSS por componente |
-| Deploy | Vercel (CI/CD desde GitHub) |
-| Análisis BI | Python, Pandas, scikit-learn, Power BI Desktop |
+| Capa | Tecnología                                        |
+|---|---------------------------------------------------|
+| Frontend | React 19.3, Vite 8, TypeScript 6 |
+| 3D / WebGL | Three.js 0.186, React Three Fiber 9.8, Drei 10.7 |
+| Enrutado | React Router DOM 7.18 |
+| Gráficos | Recharts 3.10 |
+| Estilos | CSS por componente                                |
+| Deploy | Vercel (CI/CD desde GitHub)                       |
+| Análisis BI | Python, Pandas, scikit-learn, Power BI Desktop    |
 
 ---
 
 ## Cómo correr el proyecto localmente
 
 ```bash
-git clone https://github.com/tu-usuario/tu-repo.git
-cd tu-repo
+git clone https://github.com/JuanLif3/solar-portafolio.git
+cd portafolio-solar
 npm install
 npm run dev
 ```
