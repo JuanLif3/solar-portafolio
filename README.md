@@ -3,7 +3,7 @@
 Portafolio profesional construido con **React + Vite + TypeScript** y **React Three Fiber**, que presenta tres proyectos reales desplegados, el Trabajo Integrador de Business Intelligence (ISI802) sobre vulnerabilidad territorial en la Región de O'Higgins, y una síntesis de los hallazgos del análisis.
 
 **Demo en vivo:** [https://tu-proyecto.vercel.app](https://tu-proyecto.vercel.app)
-**Repositorio:** [https://github.com/tu-usuario/tu-repo](https://github.com/tu-usuario/tu-repo)
+**Repositorio:** [https://github.com/JuanLif3/solar-portafolio.git](https://github.com/JuanLif3/solar-portafolio.git)
 
 ---
 
