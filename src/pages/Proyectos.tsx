@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import '../styles/Proyectos.css'
+import { SiteFooter } from '../components/SiteFooter'
 
 /* ============================================================
  *  TIPOS & DATOS
@@ -233,10 +234,7 @@ export function Proyectos() {
             </section>
 
             {/* ---------- Footer ---------- */}
-            <footer className="proyectos__foot">
-                <span>// {filtered.length} proyectos · {counts.all} totales</span>
-                <span>Repositorio · github.com/JuanLif3</span>
-            </footer>
+            <SiteFooter projectLabel={`${filtered.length} de ${counts.all} proyectos · Portafolio`} />
         </main>
     )
 }

@@ -11,6 +11,7 @@ import {
     ChartHeladasHeatmap,
 } from '../components/PowerBICharts'
 import '../styles/PowerBI.css'
+import { SiteFooter } from '../components/SiteFooter'
 
 /* ============================================================
  *  CONFIG
@@ -354,10 +355,7 @@ export function PowerBI() {
             </section>
 
             {/* ---------- Footer ---------- */}
-            <footer className="pb__foot">
-                <span>// Proyecto ISI802 · Business Intelligence</span>
-                <span>Región de O'Higgins · Chile</span>
-            </footer>
+            <SiteFooter projectLabel="Proyecto ISI802 · Business Intelligence" />
         </main>
     )
 }

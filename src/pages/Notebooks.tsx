@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import './styles/Notebooks.css'
+import { SiteFooter } from '../components/SiteFooter'
 
 /* ============================================================
  *  CONFIG — URLs del notebook
@@ -422,10 +423,7 @@ export function Notebooks() {
             </section>
 
             {/* ---------- Footer ---------- */}
-            <footer className="nb__foot">
-                <span>// Proyecto ISI802 · Business Intelligence</span>
-                <span>Región de O'Higgins · Chile</span>
-            </footer>
+            <SiteFooter projectLabel="Proyecto ISI802 · Notebooks de análisis" />
         </main>
     )
 }
