@@ -141,11 +141,10 @@ export function Proyectos() {
                 </h1>
 
                 <p className="proyectos__subtitle">
-                    Aplicaciones web reales, en producción, usadas por personas reales.
+                    Aplicaciones web reales — dos en producción y una en desarrollo activo.
                     Desde un gestor de contraseñas con cifrado zero-knowledge hasta
-                    sistemas de gestión financiera y mensajería.
+                    sistemas de gestión financiera comunitaria y mensajería.
                 </p>
-
                 {/* Filters */}
                 <nav className="proyectos__filters" aria-label="Filtros">
                     {(['all', 'bi', 'ml', 'etl', 'web'] as Filter[]).map((f) => (
