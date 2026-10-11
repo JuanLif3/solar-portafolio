@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import './styles/Notebooks.css'
+import '../styles/Notebooks.css'
 import { SiteFooter } from '../components/SiteFooter'
 
 /* ============================================================
