@@ -268,7 +268,7 @@ function labelToSectionId(label: string): SectionId | null {
         .replace(/\s+/g, '-')
     const allowed: SectionId[] = [
         'inicio', 'sobre-mi', 'proyectos', 'experiencia',
-        'stack', 'certs', 'blog', 'contacto',
+        'stack', 'powerbi', 'notebooks', 'contacto',
     ]
     return allowed.includes(normalized as SectionId)
         ? (normalized as SectionId)
