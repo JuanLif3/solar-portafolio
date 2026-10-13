@@ -76,7 +76,7 @@ const SECTION_INFO: Record<string, Info> = {
         title: 'Trayectoria',
         subtitle: 'Disciplina antes que código',
         description:
-            'Antes del desarrollo, seis años de trabajo real: jefe de aseo en Mall Vivo, reponedor en Alvi, atención al cliente en Falabella, líder promotor, almacén de barrio y aseo general. Cada trabajo me enseñó responsabilidad, trato con personas y a resolver problemas bajo presión. Eso se traduce directo al trabajo en equipo de software.',
+            'Antes del desarrollo: jefe de aseo en Mall Vivo, reponedor en Alvi, atención al cliente en Falabella, líder promotor, almacén de barrio y aseo general. Cada trabajo me enseñó responsabilidad, trato con personas y a resolver problemas bajo presión. Eso se traduce directo al trabajo en equipo de software.',
         bullets: ['Liderazgo operativo', 'Atención al cliente', 'Trabajo bajo presión'],
         telemetry: [
             { label: 'ROLES',     value: '06+ posiciones' },
