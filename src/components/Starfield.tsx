@@ -58,13 +58,13 @@ export function Starfield() {
 
     const { geometry, uniforms } = useMemo(() => {
         // Rejilla uniforme → densidad pareja en cualquier dirección.
-        const GRID = 20
+        const GRID = 14
         const count = GRID * GRID * GRID
 
         const RANGE = 220
         const HEIGHT = 160
         const DEPTH = 300
-        const INNER_HOLE = 30
+        const INNER_HOLE = 45
 
         const cellX = RANGE / GRID
         const cellY = HEIGHT / GRID
@@ -159,7 +159,7 @@ export function Starfield() {
                         : 1,
             },
             // Multiplicador global del largo de la estela.
-            uTailLength: { value: 0.22 },
+            uTailLength: { value: 0.14 },
         }
 
         return { geometry: geo, uniforms: uni }
@@ -174,7 +174,7 @@ export function Starfield() {
     })
 
     return (
-        <lineSegments geometry={geometry} frustumCulled={false}>
+        <lineSegments geometry={geometry}>
             <shaderMaterial
                 ref={materialRef}
                 uniforms={uniforms}

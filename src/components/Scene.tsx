@@ -50,8 +50,11 @@ export function Scene() {
         <div className="scene">
             <Canvas
                 camera={{ position: [0, 26, 14], fov: 42 }}
-                dpr={[1, 2]}
-                gl={{ antialias: true }}
+                dpr={window.innerWidth < 900 ? [1, 1.25] : [1, 2]}
+                gl={{
+                    antialias: window.innerWidth >= 900,
+                    powerPreference: 'high-performance',
+                }}
             >
                 <color attach="background" args={['#03040a']} />
                 <ambientLight intensity={0.06} />
