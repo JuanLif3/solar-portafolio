@@ -217,7 +217,6 @@ export function HUD() {
                 </button>
 
                 {/* Toggle de tema */}
-                <ThemeToggle variant="rail" />
             </aside>
 
             {/* ============ CROSSHAIR ============ */}
