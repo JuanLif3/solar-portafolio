@@ -35,7 +35,7 @@ const SECTION_INFO: Record<string, Info> = {
     },
     '02 · Sobre mí': {
         index: '02',
-        title: 'Sobre mí',
+        title: 'Sobre mí -',
         subtitle: 'Perfil profesional',
         description:
             'Full Stack Developer con base en Business Intelligence. Construyo aplicaciones web con TypeScript (React, Next.js, NestJS) y tengo formación sólida en el ciclo completo del dato: ETL de fuentes oficiales, modelado dimensional en estrella, medidas DAX, clustering y forecasting con Python. Me interesa la intersección entre producto, datos y ciberseguridad.',
