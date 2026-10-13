@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { systemStore, useSystemState, type SectionId } from '../store/system'
 import '../styles/HUD.css'
-import { ThemeToggle } from './ThemeToggle'
 
 type Section = { id: SectionId; label: string; href?: string }
 
