@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import '../styles/Proyectos.css'
 import { SiteFooter } from '../components/SiteFooter'
+import { ThemeToggle } from '../components/ThemeToggle'
 
 /* ============================================================
  *  TIPOS & DATOS
@@ -119,6 +120,9 @@ export function Proyectos() {
             <span className="proyectos__corner proyectos__corner--bl" />
             <span className="proyectos__corner proyectos__corner--br" />
 
+            {/* ---------- Theme toggle ---------- */}
+            <ThemeToggle variant="floating" />
+
             {/* ---------- Back ---------- */}
             <Link to="/" className="proyectos__back">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
@@ -132,10 +136,10 @@ export function Proyectos() {
 
             {/* ---------- Header ---------- */}
             <header className="proyectos__header">
-        <span className="proyectos__eyebrow">
-          <span className="proyectos__eyebrow-mark">◆</span>
-          Archivo · 03
-        </span>
+                <span className="proyectos__eyebrow">
+                    <span className="proyectos__eyebrow-mark">◆</span>
+                    Archivo · 03
+                </span>
 
                 <h1 className="proyectos__title">
                     Proyectos <em>desplegados</em>.
@@ -146,6 +150,7 @@ export function Proyectos() {
                     Desde un gestor de contraseñas con cifrado zero-knowledge hasta
                     sistemas de gestión financiera comunitaria y mensajería.
                 </p>
+
                 {/* Filters */}
                 <nav className="proyectos__filters" aria-label="Filtros">
                     {(['all', 'bi', 'ml', 'etl', 'web'] as Filter[]).map((f) => (
@@ -155,12 +160,12 @@ export function Proyectos() {
                             className={`proyectos__filter ${filter === f ? 'is-active' : ''}`}
                             onClick={() => setFilter(f)}
                         >
-              <span className="proyectos__filter-label">
-                {f === 'all' ? 'Todos' : CATEGORY_LABEL[f]}
-              </span>
+                            <span className="proyectos__filter-label">
+                                {f === 'all' ? 'Todos' : CATEGORY_LABEL[f]}
+                            </span>
                             <span className="proyectos__filter-count">
-                {String(counts[f]).padStart(2, '0')}
-              </span>
+                                {String(counts[f]).padStart(2, '0')}
+                            </span>
                         </button>
                     ))}
                 </nav>
@@ -173,54 +178,48 @@ export function Proyectos() {
                         key={p.id}
                         href={p.external ?? p.href}
                         target={p.external ? '_blank' : undefined}
-                        rel={p.external ? 'noreferrer' : undefined}
+                        rel={p.external ? 'noopener noreferrer' : undefined}
                         className="project-card"
                         data-status={p.status}
                     >
-                        {/* Corner brackets */}
                         <span className="project-card__bracket project-card__bracket--tl" />
                         <span className="project-card__bracket project-card__bracket--tr" />
                         <span className="project-card__bracket project-card__bracket--bl" />
                         <span className="project-card__bracket project-card__bracket--br" />
 
-                        {/* Header */}
                         <div className="project-card__head">
                             <span className="project-card__index">{p.index}</span>
                             <span className={`project-card__status project-card__status--${p.status}`}>
-                <span className="project-card__status-dot" />
+                                <span className="project-card__status-dot" />
                                 {STATUS_LABEL[p.status]}
-              </span>
+                            </span>
                         </div>
 
-                        {/* Title */}
                         <h2 className="project-card__title">{p.title}</h2>
                         <span className="project-card__subtitle">{p.subtitle}</span>
 
-                        {/* Description */}
                         <p className="project-card__desc">{p.description}</p>
 
-                        {/* Tags */}
                         <ul className="project-card__tags">
                             {p.tags.map((t) => (
                                 <li key={t}>{t}</li>
                             ))}
                         </ul>
 
-                        {/* Footer */}
                         <footer className="project-card__foot">
-              <span className="project-card__category">
-                {CATEGORY_LABEL[p.category]}
-              </span>
+                            <span className="project-card__category">
+                                {CATEGORY_LABEL[p.category]}
+                            </span>
                             <span className="project-card__year">{p.year}</span>
                             <span className="project-card__cta">
-                {p.status === 'wip' ? 'Ver en GitHub' : 'Abrir'}
+                                {p.status === 'wip' ? 'Ver en GitHub' : 'Abrir'}
                                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none"
                                      stroke="currentColor" strokeWidth="2" strokeLinecap="round"
                                      strokeLinejoin="round">
-                  <line x1="7" y1="17" x2="17" y2="7" />
-                  <polyline points="7 7 17 7 17 17" />
-                </svg>
-              </span>
+                                    <line x1="7" y1="17" x2="17" y2="7" />
+                                    <polyline points="7 7 17 7 17 17" />
+                                </svg>
+                            </span>
                         </footer>
                     </a>
                 ))}

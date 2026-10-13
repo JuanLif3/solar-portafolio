@@ -12,6 +12,7 @@ import {
 } from '../components/PowerBICharts'
 import '../styles/PowerBI.css'
 import { SiteFooter } from '../components/SiteFooter'
+import { ThemeToggle } from '../components/ThemeToggle'
 
 /* ============================================================
  *  CONFIG
@@ -100,7 +101,6 @@ const STACK = [
 export function PowerBI() {
     return (
         <main className="pb">
-            {/* ---------- Fondo ---------- */}
             <div className="pb__bg" aria-hidden="true">
                 <div className="pb__bg-grid" />
                 <div className="pb__bg-glow" />
@@ -111,7 +111,9 @@ export function PowerBI() {
             <span className="pb__corner pb__corner--bl" />
             <span className="pb__corner pb__corner--br" />
 
-            {/* ---------- Back ---------- */}
+            {/* Theme toggle */}
+            <ThemeToggle variant="floating" />
+
             <Link to="/" className="pb__back">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
                      stroke="currentColor" strokeWidth="2" strokeLinecap="round">
@@ -121,7 +123,6 @@ export function PowerBI() {
                 <span>Volver al sistema</span>
             </Link>
 
-            {/* ============ HERO ============ */}
             <header className="pb__hero">
                 <div className="pb__hero-main">
                     <span className="pb__eyebrow">
@@ -192,7 +193,6 @@ export function PowerBI() {
                 </aside>
             </header>
 
-            {/* ============ KPIs ============ */}
             <section className="pb__kpis">
                 {KPIS.map((k) => (
                     <article key={k.label} className="pb__kpi">
@@ -202,10 +202,7 @@ export function PowerBI() {
                 ))}
             </section>
 
-            {/* ============ BLOQUES DE GRÁFICOS POWER BI ============ */}
             <section className="pb__visuals">
-
-                {/* BLOQUE 01 · Contexto y concentración del riesgo */}
                 <div className="pb-block">
                     <header className="pb__section-head">
                         <span className="pb__section-index">01</span>
@@ -233,7 +230,6 @@ export function PowerBI() {
                     </div>
                 </div>
 
-                {/* BLOQUE 02 · Efecto dominó territorial */}
                 <div className="pb-block">
                     <header className="pb__section-head">
                         <span className="pb__section-index">02</span>
@@ -258,7 +254,6 @@ export function PowerBI() {
                     </div>
                 </div>
 
-                {/* BLOQUE 03 · Efecto dominó sectorial */}
                 <div className="pb-block">
                     <header className="pb__section-head">
                         <span className="pb__section-index">03</span>
@@ -274,17 +269,15 @@ export function PowerBI() {
                         <PowerBIChartsGroupC />
                     </div>
                 </div>
-
             </section>
 
-            {/* ============ CONCLUSIONES ============ */}
             <section className="pb__findings">
                 <header className="pb__section-head">
                     <span className="pb__section-index">04</span>
                     <div>
                         <h2 className="pb__section-title">Conclusiones sobre vulnerabilidad</h2>
                         <p className="pb__section-desc">
-                            Cinco hallazgos accionables para tomadores de decisión.
+                            Nueve hallazgos accionables para tomadores de decisión.
                         </p>
                     </div>
                 </header>
@@ -313,7 +306,6 @@ export function PowerBI() {
                 </aside>
             </section>
 
-            {/* ============ STACK ============ */}
             <section className="pb__stack">
                 <header className="pb__section-head">
                     <span className="pb__section-index">05</span>
@@ -354,7 +346,6 @@ export function PowerBI() {
                 </div>
             </section>
 
-            {/* ---------- Footer ---------- */}
             <SiteFooter projectLabel="Proyecto ISI802 · Business Intelligence" />
         </main>
     )

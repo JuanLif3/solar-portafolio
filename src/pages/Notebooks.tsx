@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom'
 import '../styles/Notebooks.css'
 import { SiteFooter } from '../components/SiteFooter'
+import { ThemeToggle } from '../components/ThemeToggle'
 
 /* ============================================================
  *  CONFIG — URLs del notebook
- *  Reemplaza GITHUB_USER/REPO si cambia
  * ============================================================ */
 const COLAB_URL =
     'https://colab.research.google.com/drive/1jBhoUPe6ihNb3irfjyFBdul8XhiYQS2Y?usp=sharing'
@@ -201,7 +201,6 @@ const FINDINGS = [
 export function Notebooks() {
     return (
         <main className="nb">
-            {/* ---------- Fondo ---------- */}
             <div className="nb__bg" aria-hidden="true">
                 <div className="nb__bg-grid" />
                 <div className="nb__bg-glow" />
@@ -212,7 +211,9 @@ export function Notebooks() {
             <span className="nb__corner nb__corner--bl" />
             <span className="nb__corner nb__corner--br" />
 
-            {/* ---------- Back ---------- */}
+            {/* Theme toggle */}
+            <ThemeToggle variant="floating" />
+
             <Link to="/" className="nb__back">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
                      stroke="currentColor" strokeWidth="2" strokeLinecap="round">
@@ -222,7 +223,6 @@ export function Notebooks() {
                 <span>Volver al sistema</span>
             </Link>
 
-            {/* ============ HERO ============ */}
             <header className="nb__hero">
                 <span className="nb__eyebrow">
                     <span className="nb__eyebrow-mark">◆</span>
@@ -241,12 +241,11 @@ export function Notebooks() {
                     y la construcción de un modelo dimensional en estrella.
                 </p>
 
-                {/* Barra de acciones */}
                 <div className="nb__actions">
                     <a
                         href={COLAB_URL}
                         target="_blank"
-                        rel="noreferrer"
+                        rel="noopener noreferrer"
                         className="nb__action nb__action--primary"
                     >
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
@@ -260,7 +259,7 @@ export function Notebooks() {
                     <a
                         href={GITHUB_URL}
                         target="_blank"
-                        rel="noreferrer"
+                        rel="noopener noreferrer"
                         className="nb__action"
                     >
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
@@ -275,7 +274,6 @@ export function Notebooks() {
                     </span>
                 </div>
 
-                {/* KPIs */}
                 <div className="nb__meta">
                     {KPIS.map((k) => (
                         <div key={k.label} className="nb__meta-item">
@@ -286,7 +284,6 @@ export function Notebooks() {
                 </div>
             </header>
 
-            {/* ============ FASES ============ */}
             <section className="nb__phases">
                 <header className="nb__section-head">
                     <span className="nb__section-index">01</span>
@@ -350,7 +347,6 @@ export function Notebooks() {
                 </div>
             </section>
 
-            {/* ============ HALLAZGOS ============ */}
             <section className="nb__findings">
                 <header className="nb__section-head">
                     <span className="nb__section-index">02</span>
@@ -375,7 +371,6 @@ export function Notebooks() {
                 </ol>
             </section>
 
-            {/* ============ CTA FINAL ============ */}
             <section className="nb__cta-final">
                 <div className="nb__cta-final-content">
                     <span className="nb__cta-final-eyebrow">
@@ -395,7 +390,7 @@ export function Notebooks() {
                         <a
                             href={COLAB_URL}
                             target="_blank"
-                            rel="noreferrer"
+                            rel="noopener noreferrer"
                             className="nb__action nb__action--primary"
                         >
                             Abrir en Colab
@@ -410,7 +405,7 @@ export function Notebooks() {
                         <a
                             href={GITHUB_URL}
                             target="_blank"
-                            rel="noreferrer"
+                            rel="noopener noreferrer"
                             className="nb__action"
                         >
                             Ver en GitHub
@@ -422,7 +417,6 @@ export function Notebooks() {
                 </div>
             </section>
 
-            {/* ---------- Footer ---------- */}
             <SiteFooter projectLabel="Proyecto ISI802 · Notebooks de análisis" />
         </main>
     )

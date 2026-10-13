@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { systemStore, useSystemState, type SectionId } from '../store/system'
 import '../styles/HUD.css'
+import { ThemeToggle } from './ThemeToggle'
 
 type Section = { id: SectionId; label: string; href?: string }
 
@@ -85,7 +86,6 @@ export function HUD() {
     // ============ Atajos de teclado ============
     useEffect(() => {
         const onKey = (e: KeyboardEvent) => {
-            // No disparar si el usuario escribe en un input.
             const tag = (e.target as HTMLElement)?.tagName
             if (tag === 'INPUT' || tag === 'TEXTAREA') return
 
@@ -108,9 +108,13 @@ export function HUD() {
 
     const toggleFullscreen = () => {
         if (!document.fullscreenElement) {
-            document.documentElement.requestFullscreen().catch(() => {})
+            document.documentElement.requestFullscreen().catch((err) => {
+                console.warn('Fullscreen no disponible:', err)
+            })
         } else {
-            document.exitFullscreen().catch(() => {})
+            document.exitFullscreen().catch((err) => {
+                console.warn('Salida de fullscreen falló:', err)
+            })
         }
     }
 
@@ -211,6 +215,9 @@ export function HUD() {
                         <path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" />
                     </svg>
                 </button>
+
+                {/* Toggle de tema */}
+                <ThemeToggle variant="rail" />
             </aside>
 
             {/* ============ CROSSHAIR ============ */}

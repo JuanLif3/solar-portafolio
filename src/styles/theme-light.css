@@ -1,0 +1,243 @@
+/* ============================================================
+ *  MODO CLARO — overrides globales
+ *  Se aplica cuando <html data-theme="light">
+ * ============================================================ */
+
+[data-theme='light'] {
+    /* Variables de superficie */
+    --bg-page: #f7f5ee;
+    --bg-surface: #ffffff;
+    --bg-surface-2: #f1ede2;
+    --bg-elevated: rgba(255, 255, 255, 0.85);
+
+    /* Texto */
+    --text-primary: #1a1d2e;
+    --text-secondary: #4a4f60;
+    --text-muted: #6b7080;
+
+    /* Bordes */
+    --border-soft: rgba(0, 0, 0, 0.08);
+    --border-strong: rgba(0, 0, 0, 0.15);
+
+    /* Acento (dorado más oscuro para contraste) */
+    --accent: #b8860b;
+    --accent-soft: rgba(184, 134, 11, 0.12);
+    --accent-border: rgba(184, 134, 11, 0.35);
+}
+
+/* ---------- Fondo de página ---------- */
+[data-theme='light'] body,
+[data-theme='light'] .app {
+    background: var(--bg-page);
+    color: var(--text-primary);
+}
+
+[data-theme='light'] .pb,
+[data-theme='light'] .nb,
+[data-theme='light'] .proyectos {
+    background: var(--bg-page);
+    color: var(--text-primary);
+}
+
+/* ---------- Fondo estelar (grid + glow) ---------- */
+[data-theme='light'] .pb__bg-grid,
+[data-theme='light'] .nb__bg-grid,
+[data-theme='light'] .proyectos__bg-grid {
+    background-image:
+            linear-gradient(rgba(30, 60, 130, 0.06) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(30, 60, 130, 0.06) 1px, transparent 1px);
+}
+
+[data-theme='light'] .pb__bg-glow,
+[data-theme='light'] .nb__bg-glow,
+[data-theme='light'] .proyectos__bg-glow {
+    background: radial-gradient(
+            ellipse 70% 45% at 50% 0%,
+            rgba(255, 200, 80, 0.18) 0%,
+            transparent 60%
+    );
+}
+
+/* ---------- Esquinas HUD ---------- */
+[data-theme='light'] .pb__corner,
+[data-theme='light'] .nb__corner,
+[data-theme='light'] .proyectos__corner {
+    border-color: rgba(184, 134, 11, 0.5);
+}
+
+/* ---------- Botón volver ---------- */
+[data-theme='light'] .pb__back,
+[data-theme='light'] .nb__back,
+[data-theme='light'] .proyectos__back {
+    background: rgba(255, 255, 255, 0.7);
+    border-color: rgba(0, 0, 0, 0.12);
+    color: #4a4f60;
+}
+
+[data-theme='light'] .pb__back:hover,
+[data-theme='light'] .nb__back:hover,
+[data-theme='light'] .proyectos__back:hover {
+    color: #b8860b;
+    border-color: rgba(184, 134, 11, 0.55);
+}
+
+/* ---------- Títulos ---------- */
+[data-theme='light'] .pb__title,
+[data-theme='light'] .nb__title,
+[data-theme='light'] .proyectos__title {
+    color: #1a1d2e;
+}
+
+[data-theme='light'] .pb__lede,
+[data-theme='light'] .nb__lede,
+[data-theme='light'] .proyectos__subtitle {
+    color: #4a4f60;
+}
+
+/* ---------- Superficies (cards, meta, hero-side) ---------- */
+[data-theme='light'] .pb__hero-side,
+[data-theme='light'] .pb__kpi,
+[data-theme='light'] .pb__stack-item,
+[data-theme='light'] .pb__finding,
+[data-theme='light'] .pb__caveat,
+[data-theme='light'] .project-card,
+[data-theme='light'] .nb-phase,
+[data-theme='light'] .nb__meta-item,
+[data-theme='light'] .nb__cta-final,
+[data-theme='light'] .pbi-chart {
+    background: var(--bg-surface);
+    border-color: var(--border-soft);
+    color: var(--text-primary);
+    box-shadow: 0 4px 20px -8px rgba(0, 0, 0, 0.08);
+}
+
+[data-theme='light'] .project-card:hover,
+[data-theme='light'] .nb-phase:hover {
+    border-color: var(--accent-border);
+    background: #fdfbf5;
+    box-shadow: 0 20px 60px -20px rgba(184, 134, 11, 0.25);
+}
+
+/* ---------- Texto secundario en listas ---------- */
+[data-theme='light'] .pb__finding-title,
+[data-theme='light'] .nb-finding__title,
+[data-theme='light'] .project-card__title,
+[data-theme='light'] .nb-phase__title {
+    color: #1a1d2e;
+}
+
+[data-theme='light'] .pb__finding-text,
+[data-theme='light'] .nb-finding__text,
+[data-theme='light'] .project-card__desc,
+[data-theme='light'] .nb-phase__desc {
+    color: #4a4f60;
+}
+
+/* ---------- Acento dorado (más oscuro en claro) ---------- */
+[data-theme='light'] .pb__eyebrow,
+[data-theme='light'] .nb__eyebrow,
+[data-theme='light'] .proyectos__eyebrow,
+[data-theme='light'] .pb__section-index,
+[data-theme='light'] .nb__section-index,
+[data-theme='light'] .pb__meta-label,
+[data-theme='light'] .nb__meta-label,
+[data-theme='light'] .project-card__index,
+[data-theme='light'] .project-card__category,
+[data-theme='light'] .nb-phase__n,
+[data-theme='light'] .nb-finding__n,
+[data-theme='light'] .pb__stack-label {
+    color: #b8860b;
+    text-shadow: none;
+}
+
+/* ---------- Filtros ---------- */
+[data-theme='light'] .proyectos__filters {
+    background: rgba(255, 255, 255, 0.7);
+    border-color: var(--border-soft);
+}
+
+[data-theme='light'] .proyectos__filter {
+    color: #4a4f60;
+}
+
+[data-theme='light'] .proyectos__filter:hover {
+    color: #1a1d2e;
+    background: rgba(0, 0, 0, 0.04);
+}
+
+[data-theme='light'] .proyectos__filter.is-active {
+    color: #ffffff;
+    background: linear-gradient(135deg, #d4a017, #b8860b);
+    box-shadow: 0 0 20px -4px rgba(184, 134, 11, 0.5);
+}
+
+/* ---------- Tags de proyecto ---------- */
+[data-theme='light'] .project-card__tags li {
+    background: rgba(184, 134, 11, 0.08);
+    border-color: rgba(184, 134, 11, 0.2);
+    color: #4a4f60;
+}
+
+/* ---------- Gráficos Recharts (paleta Power BI se mantiene) ---------- */
+[data-theme='light'] .pbi-chart__title {
+    color: #252423;
+}
+
+[data-theme='light'] .pbi-chart__subtitle {
+    color: #605E5C;
+}
+
+/* ---------- SiteFooter ---------- */
+[data-theme='light'] .site-footer {
+    background: linear-gradient(
+            180deg,
+            rgba(255, 255, 255, 0.7) 0%,
+            rgba(240, 236, 224, 0.5) 100%
+    );
+    border-color: var(--border-soft);
+}
+
+[data-theme='light'] .site-footer__brand-name {
+    color: #1a1d2e;
+}
+
+[data-theme='light'] .site-footer__brand-role,
+[data-theme='light'] .site-footer__label {
+    color: #b8860b;
+}
+
+[data-theme='light'] .site-footer__list a {
+    color: #4a4f60;
+}
+
+[data-theme='light'] .site-footer__list a:hover {
+    color: #b8860b;
+}
+
+[data-theme='light'] .site-footer__col--ai {
+    background: rgba(74, 222, 128, 0.06);
+    border-color: rgba(74, 222, 128, 0.25);
+}
+
+[data-theme='light'] .site-footer__ai-text {
+    color: #4a4f60;
+}
+
+[data-theme='light'] .site-footer__bottom {
+    color: rgba(0, 0, 0, 0.4);
+}
+
+/* ---------- Botones CTA ---------- */
+[data-theme='light'] .pb__cta,
+[data-theme='light'] .nb__action {
+    background: rgba(255, 255, 255, 0.9);
+    border-color: var(--border-strong);
+    color: #1a1d2e;
+}
+
+[data-theme='light'] .pb__cta--primary,
+[data-theme='light'] .nb__action--primary {
+    background: linear-gradient(135deg, #d4a017, #b8860b);
+    color: #ffffff;
+    border-color: transparent;
+}
