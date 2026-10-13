@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { systemStore, useSystemState } from '../store/system'
 import '../styles/PlanetReadout.css'
+import { ContactForm } from './ContactForm'
 
 type Telemetry = { label: string; value: string }
 
@@ -547,6 +548,8 @@ export function PlanetReadout() {
                             ))}
                         </ul>
                     </section>
+
+                    {focusedPlanet === '08 · Contacto' && <ContactForm />}
 
                     {/* ============ TRAVEL BUTTON ============ */}
                     {info.route && (
